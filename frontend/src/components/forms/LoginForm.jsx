@@ -1,12 +1,12 @@
 import { useFormik } from 'formik';
-import { useContext } from 'react';
-import { AuthContext } from '../../context';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/reducres/auth.reducer';
 import { loginScheme } from '../../validation-schemes'
 import { Button, FormGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
 const LoginForm = () => {
-    const { login } = useContext(AuthContext);
+    const dispatch = useDispatch();
 
     const loginFormik = useFormik({
       initialValues: {
@@ -16,18 +16,19 @@ const LoginForm = () => {
       validationSchema: loginScheme,
       onSubmit: async (values, { setFieldError }) => {
         try {
-            await login(values);
+            await dispatch(login(values)).unwrap();
         } catch (error) {
-            setFieldError("password", error.message || "Invalid login or password");
+            setFieldError("password", error.message || "Login failed"); // TODO: set server error to the form state and display it in the form
         }
       },
     });
 
     return (
-      <Form onSubmit={loginFormik.handleSubmit} className="p-3 border rounded w-100">
+      <Form onSubmit={loginFormik.handleSubmit} className="p-3 border rounded w-50 mx-auto">
         <Form.Group controlId="login">
-          <Form.Label>Login</Form.Label>
+          <Form.Label htmlFor='username'>Login</Form.Label>
           <Form.Control
+            id="username"
             type="text"
             name="username"
             value={loginFormik.values.username}
@@ -39,8 +40,9 @@ const LoginForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+            id="password"
             type="password"
             name="password"
             value={loginFormik.values.password}

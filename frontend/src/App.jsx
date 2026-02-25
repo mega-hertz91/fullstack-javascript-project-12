@@ -1,8 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MainPage, LoginPage, NotFoundPage } from './components/pages';
-import { useContext } from 'react';
-import { AuthContext } from './context';
+import { useSelector } from 'react-redux';
 
 const routes = [
   {
@@ -18,14 +17,15 @@ const routes = [
 ];
 
 function App() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuth } = useSelector((state) => state.auth);
+
 
   return (
     <BrowserRouter>
       <Routes>
         {routes.map(({ private: isPrivate = false, ...route }, index) => {
           // Если маршрут приватный и пользователь не аутентифицирован, перенаправляем на страницу логина
-          if (isPrivate && !isAuthenticated) {
+          if (isPrivate && !isAuth) {
             return (
               <Route
                 key={index}
@@ -36,7 +36,7 @@ function App() {
           }
 
           // Если маршрут публичный и пользователь уже аутентифицирован, перенаправляем на главную страницу
-          if (!isPrivate && isAuthenticated) {
+          if (!isPrivate && isAuth) {
             return (
               <Route
                 key={index}
