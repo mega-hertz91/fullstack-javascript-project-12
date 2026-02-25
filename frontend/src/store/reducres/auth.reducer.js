@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { ResponseStatus } from "../../constants";
 
 const Status = {
   SUCCESS: "success",
@@ -56,7 +57,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       const { statusCode, token = null, username = null } = action.payload;
 
-      if (statusCode > 200) {
+      if (statusCode > ResponseStatus.OK) {
         state.state = Status.ERROR;
 
         throw new Error("Login or password is incorrect");
