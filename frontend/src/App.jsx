@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { MainPage, LoginPage, NotFoundPage } from './components/pages';
+import { MainPage, LoginPage, NotFoundPage, SignUpPage } from './components/pages';
 import { useSelector } from 'react-redux';
 
 const routes = [
@@ -13,6 +13,10 @@ const routes = [
   {
     path: "login",
     element: <LoginPage />,
+  },
+  {
+    path: "signup",
+    element: <SignUpPage />,
   },
 ];
 
