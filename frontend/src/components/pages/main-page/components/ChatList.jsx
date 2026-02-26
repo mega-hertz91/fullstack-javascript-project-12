@@ -7,22 +7,34 @@ import {
 } from "@/store/services/messages.service";
 
 const ChatList = ({ channelId }) => {
-    const { username } = useSelector((state) => state.auth);
+  const { username } = useSelector((state) => state.auth);
   const { data: messages, error, isLoading, refetch } = useGetMessagesQuery();
   const [createMessage] = useCreateMessageMutation();
+  /**
+   * Filter message by channelId to display only messages relevant to the current channel. This ensures that users see only the messages for the channel they are currently in.
+   */
 
+  const filteredMessages = messages?.filter((message) => message.channelId === channelId) || [];
+
+  /**
+   * Formik form for handling message input and submission. On submit, it sends the message to the server and refetches the messages to update the chat list.
+   */
   const messageForm = useFormik({
     initialValues: {
       message: "",
     },
     onSubmit: async (values) => {
-        try {
-            await createMessage({ channelId, body: values.message, username }).unwrap();
-            messageForm.resetForm();
-            refetch();
-        } catch (error) {
-            console.error("Failed to send message:", error);
-        }
+      try {
+        await createMessage({
+          channelId,
+          body: values.message,
+          username,
+        }).unwrap();
+        messageForm.resetForm();
+        refetch();
+      } catch (error) {
+        console.error("Failed to send message:", error);
+      }
     },
   });
 
@@ -38,13 +50,13 @@ const ChatList = ({ channelId }) => {
         <>
           <div className="flex-grow-1">
             <p className="p-2 bg-light border-bottom">
-              Messages: <Badge>{messages?.length || 0}</Badge>
+              Messages: <Badge>{filteredMessages.length}</Badge>
             </p>
             <ul
               className="list-unstyled px-2 overflow-auto"
               style={{ maxHeight: "500px" }}
             >
-              {messages?.map((message) => (
+              {filteredMessages.map((message) => (
                 <li
                   key={message.id}
                   className={
