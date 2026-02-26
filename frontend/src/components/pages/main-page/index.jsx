@@ -34,7 +34,7 @@ const Page = () => {
           <Row className="h-100">
             <Col
               lg={3}
-              className="border rounded-3 h-100 overflow-scroll p-0 mr-2"
+              className="border rounded-3 h-100 overflow-hidden p-0 mr-2"
             >
               <ChannelList
                 chanels={chanels}
@@ -44,7 +44,7 @@ const Page = () => {
             </Col>
             <Col
               lg={9}
-              className="border rounded-3 h-100 overflow-scroll flex-column d-flex p-0 ml-2"
+              className="border rounded-3 h-100 overflow-hidden flex-column d-flex p-0 ml-2"
             >
               <ChatList channelId={currentChanel?.id} />
             </Col>

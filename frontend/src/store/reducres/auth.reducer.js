@@ -8,6 +8,9 @@ const Status = {
   IDLE: "idle",
 };
 
+/**
+ * Login and logout thunks. You can also add register thunk here if you want to implement registration in your app.
+ */
 export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }) => {
@@ -24,9 +27,49 @@ export const login = createAsyncThunk(
   },
 );
 
+/**
+ * Logout thunk. In a real app, you might want to call an API endpoint to invalidate the token on the server side.
+ */
 export const logout = createAsyncThunk("auth/logout", async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async logout (e.g., API call)
 });
+
+/**
+ * Sign up thunk. You can implement it similarly to login, just call the appropriate API endpoint and handle the response.
+ */
+export const signUp = createAsyncThunk(
+  "auth/signUp",
+  async ({ username, password }) => {
+    const response = await fetch("/api/v1/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+    return data;
+  },
+);
+
+const loginScenarios = (state, {username, token}) => {
+  state.isAuth = true;
+  state.username = username;
+  state.token = token;
+
+  localStorage.setItem("authToken", token);
+  localStorage.setItem("authUsername", username);
+}
+
+const logoutScenarios = (state) => {
+  state.isAuth = false;
+  state.username = null;
+  state.token = null;
+
+  localStorage.removeItem("authToken");
+  localStorage.removeItem("authUsername");
+}
 
 const token = localStorage.getItem("authToken");
 const userName = localStorage.getItem("authUsername");
@@ -51,6 +94,9 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    /**
+     * Login and logout scenarios
+     */
     builder.addCase(login.pending, (state) => {
       state.state = Status.LOADING;
     });
@@ -63,25 +109,39 @@ const authSlice = createSlice({
         throw new Error("Login or password is incorrect");
       }
 
-      state.isAuth = true;
-      state.username = username;
-      state.token = token;
+      loginScenarios(state, { token, username });
       state.state = Status.SUCCESS;
-
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("authUsername", username);
     });
     builder.addCase(login.rejected, (state) => {
       state.state = Status.ERROR;
     });
+    /**
+     * Logout scenarios. In a real app, you might want to handle different cases (e.g., logout success, logout failure) based on the API response. Here we just simulate a successful logout after a delay.
+     */
     builder.addCase(logout.fulfilled, (state) => {
-      state.isAuth = false;
-      state.username = null;
-      state.token = null;
-      state.state = Status.IDLE;
+      logoutScenarios(state);
+      state.state = Status.SUCCESS;
+    });
+    /**
+     * Sign up scenarios. You can implement it similarly to login, just call the appropriate API endpoint and handle the response. Here we assume that the API returns the same response structure as login (with statusCode, token, and username) for simplicity. In a real app, you might want to adjust this based on your API design.
+     */
+    builder.addCase(signUp.pending, (state) => {
+      state.state = Status.LOADING;
+    });
+    builder.addCase(signUp.fulfilled, (state, action) => {
+       const { statusCode, token = null, username = null } = action.payload;
 
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("authUsername");
+      if (statusCode > ResponseStatus.OK) {
+        state.state = Status.ERROR;
+
+        throw new Error("Registration failed");
+      }
+
+      loginScenarios(state, { token, username });
+      state.state = Status.SUCCESS;
+    }); 
+    builder.addCase(signUp.rejected, (state) => {
+      state.state = Status.ERROR;
     });
   },
 });

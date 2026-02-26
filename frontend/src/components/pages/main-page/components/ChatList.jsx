@@ -40,10 +40,20 @@ const ChatList = ({ channelId }) => {
             <p className="p-2 bg-light border-bottom">
               Messages: <Badge>{messages?.length || 0}</Badge>
             </p>
-            <ul className="list-unstyled px-2">
+            <ul
+              className="list-unstyled px-2 overflow-auto"
+              style={{ maxHeight: "500px" }}
+            >
               {messages?.map((message) => (
-                <li key={message.id}>
-                  <strong>{message.username}:</strong> {message.body}
+                <li
+                  key={message.id}
+                  className={
+                    username === message.username
+                      ? "text-primary d-flex justify-content-start"
+                      : "text-secondary d-flex justify-content-end"
+                  }
+                >
+                  <strong>{message.username}:&nbsp;</strong> {message.body}
                 </li>
               ))}
             </ul>

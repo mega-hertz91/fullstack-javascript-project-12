@@ -1,7 +1,12 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import { login } from '../../store/reducres/auth.reducer';
 import { loginScheme } from '../../validation-schemes'
+
+/**
+ * Styles * You can customize the styles as needed
+ */
 import { Button, FormGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
@@ -25,6 +30,7 @@ const LoginForm = () => {
 
     return (
       <Form onSubmit={loginFormik.handleSubmit} className="p-3 border rounded w-50 mx-auto">
+        <h1 className='fs-2'>Sing in</h1>
         <Form.Group controlId="login">
           <Form.Label htmlFor='username'>Login</Form.Label>
           <Form.Control
@@ -53,6 +59,9 @@ const LoginForm = () => {
             {loginFormik.errors.password}
           </Form.Control.Feedback>
         </Form.Group>
+        <FormGroup className='pt-3'>
+          <Link to="/signup">Don't have an account? Sign up</Link>
+        </FormGroup>
         <FormGroup className='pt-3'>
           <Button disabled={!loginFormik.isValid || loginFormik.isSubmitting} type="submit">Login</Button>
         </FormGroup>
