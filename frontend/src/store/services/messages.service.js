@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { socket } from "../../socket";
 
 export const messagesApi = createApi({
   reducerPath: "messagesApi",
@@ -19,6 +20,26 @@ export const messagesApi = createApi({
   endpoints: (build) => ({
     getMessages: build.query({
       query: () => `messages`,
+      async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        try {
+          await cacheDataLoaded;
+          socket.connect();
+
+          const handleNewMessage = (message) => {
+            updateCachedData((draft) => {
+              draft.push(message);
+            });
+          };
+
+          socket.on("newMessage", handleNewMessage);
+
+          await cacheEntryRemoved;
+          socket.off("newMessage", handleNewMessage);
+          socket.disconnect();
+        } catch (error) {
+          console.error("WebSocket error:", error);
+        }
+      },
     }),
     createMessage: build.mutation({
       query: (payload) => ({

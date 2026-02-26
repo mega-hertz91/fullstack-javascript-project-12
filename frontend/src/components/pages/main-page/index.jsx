@@ -5,7 +5,7 @@ import { useGetChanelsQuery } from "@/store/services/channels.service";
  * Global component for main page. It contains channels list and chat content
  */
 import BaseLayout from "@/components/layout";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 /**
  * Local component for channels list
