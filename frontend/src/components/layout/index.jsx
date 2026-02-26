@@ -16,7 +16,7 @@ const BaseLayout = ({ children }) => {
   };
 
   return (
-    <div className="base-layout">
+    <div className="base-layout h-100 d-flex flex-column">
       <Container>
         <header className="py-3 d-flex justify-content-between align-items-center border-bottom">
           <h1>Chat</h1>
@@ -30,8 +30,8 @@ const BaseLayout = ({ children }) => {
           )}
         </header>
       </Container>
-      <Container>
-        <main className="base-layout__content">{children}</main>
+      <Container className="flex-grow-1">
+        <main className="base-layout__content h-100">{children}</main>
       </Container>
       <Container>
         <footer className="base-layout__footer">
