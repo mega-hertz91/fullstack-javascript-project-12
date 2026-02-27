@@ -1,8 +1,5 @@
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { login } from '../../store/reducres/auth.reducer';
-import { loginScheme } from '../../validation-schemes'
 
 /**
  * Styles * You can customize the styles as needed
@@ -10,60 +7,72 @@ import { loginScheme } from '../../validation-schemes'
 import { Button, FormGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
-const LoginForm = () => {
-    const dispatch = useDispatch();
+const LoginForm = ({ onSubmit, validationScheme }) => {
 
     const loginFormik = useFormik({
       initialValues: {
         username: "",
         password: "",
       },
-      validationSchema: loginScheme,
-      onSubmit: async (values, { setFieldError }) => {
+      validationSchema: validationScheme,
+      onSubmit: async (values, { setFieldError, resetForm }) => {
         try {
-            await dispatch(login(values)).unwrap();
+            await onSubmit(values);
+            resetForm();
         } catch (error) {
-            setFieldError("password", error.message || "Login failed"); // TODO: set server error to the form state and display it in the form
+            setFieldError("password", error.message || "Login failed");
         }
       },
     });
 
     return (
-      <Form onSubmit={loginFormik.handleSubmit} className="p-3 border rounded w-50 mx-auto">
-        <h1 className='fs-2'>Sing in</h1>
-        <Form.Group controlId="login">
-          <Form.Label htmlFor='username'>Login</Form.Label>
+      <Form
+        onSubmit={loginFormik.handleSubmit}
+        className="p-3 border rounded w-50 mx-auto"
+      >
+        <h1 className="fs-2">Sing in</h1>
+        <Form.Group>
+          <Form.Label htmlFor="username">Login</Form.Label>
           <Form.Control
             id="username"
             type="text"
             name="username"
             value={loginFormik.values.username}
             onChange={loginFormik.handleChange}
-            isInvalid={!!loginFormik.errors.username && loginFormik.touched.username}
+            isInvalid={
+              !!loginFormik.errors.username && loginFormik.touched.username
+            }
           />
           <Form.Control.Feedback type="invalid">
             {loginFormik.errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label htmlFor='password'>Password</Form.Label>
+        <Form.Group>
+          <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             id="password"
             type="password"
             name="password"
             value={loginFormik.values.password}
             onChange={loginFormik.handleChange}
-            isInvalid={!!loginFormik.errors.password && loginFormik.touched.password}
+            isInvalid={
+              !!loginFormik.errors.password && loginFormik.touched.password
+            }
           />
           <Form.Control.Feedback type="invalid">
             {loginFormik.errors.password}
           </Form.Control.Feedback>
         </Form.Group>
-        <FormGroup className='pt-3'>
+        <FormGroup className="pt-3">
           <Link to="/signup">Don't have an account? Sign up</Link>
         </FormGroup>
-        <FormGroup className='pt-3'>
-          <Button disabled={!loginFormik.isValid || loginFormik.isSubmitting} type="submit">Login</Button>
+        <FormGroup className="pt-3">
+          <Button
+            disabled={!loginFormik.isValid || loginFormik.isSubmitting}
+            type="submit"
+          >
+            Login
+          </Button>
         </FormGroup>
       </Form>
     );

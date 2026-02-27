@@ -1,27 +1,17 @@
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { signUp } from '../../store/reducres/auth.reducer';
 import { Button, FormGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 
-// TODO: add form validation and error handling
-const RegisterForm = () => {
-    const dispatch = useDispatch();
-
+const RegisterForm = ({ onSubmit, validationScheme }) => {
     const registerFormik = useFormik({
       initialValues: {
         username: "",
         password: "",
-        repeatPassword: "", // Add repeat password field
+        confirmPassword: "", // Add repeat password field
       },
-      onSubmit: async ({username, password}, { setFieldError }) => {
-        try {
-            await dispatch(signUp({username, password})).unwrap();
-        } catch (error) {
-            setFieldError("password", error.message || "Login failed"); // TODO: set server error to the form state and display it in the form
-        }
-      },
+      validationSchema: validationScheme,
+      onSubmit,
     });
 
     return (
@@ -30,7 +20,7 @@ const RegisterForm = () => {
         className="p-3 border rounded w-50 mx-auto"
       >
         <h1 className="fs-2">Sing up</h1>
-        <Form.Group controlId="login">
+        <Form.Group>
           <Form.Label htmlFor="username">Login</Form.Label>
           <Form.Control
             id="username"
@@ -46,7 +36,7 @@ const RegisterForm = () => {
             {registerFormik.errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             id="password"
@@ -62,20 +52,20 @@ const RegisterForm = () => {
             {registerFormik.errors.password}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="repeatPassword">
-          <Form.Label htmlFor="repeatPassword">Repeat password</Form.Label>
+        <Form.Group>
+          <Form.Label htmlFor="confirmPassword">Repeat password</Form.Label>
           <Form.Control
-            id="repeatPassword"
+            id="confirmPassword"
             type="password"
-            name="repeatPassword"
-            value={registerFormik.values.repeatPassword}
+            name="confirmPassword"
+            value={registerFormik.values.confirmPassword}
             onChange={registerFormik.handleChange}
             isInvalid={
-              !!registerFormik.errors.repeatPassword && registerFormik.touched.repeatPassword
+              !!registerFormik.errors.confirmPassword && registerFormik.touched.confirmPassword
             }
           />
           <Form.Control.Feedback type="invalid">
-            {registerFormik.errors.repeatPassword}
+            {registerFormik.errors.confirmPassword}
           </Form.Control.Feedback>
         </Form.Group>
         <FormGroup className="pt-3">

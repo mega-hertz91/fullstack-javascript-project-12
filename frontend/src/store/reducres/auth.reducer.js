@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ResponseStatus } from "../../constants";
+import { ResponseStatus } from "@/constants";
+import { RequestError } from "@/errors/";
 
 const Status = {
   SUCCESS: "success",
@@ -40,7 +41,8 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 export const signUp = createAsyncThunk(
   "auth/signUp",
   async ({ username, password }) => {
-    const response = await fetch("/api/v1/signup", {
+    try {
+      const response = await fetch("/api/v1/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +52,9 @@ export const signUp = createAsyncThunk(
 
     const data = await response.json();
     return data;
+    } catch (error) {
+      throw new RequestError(error.message);
+    }
   },
 );
 
@@ -134,7 +139,7 @@ const authSlice = createSlice({
       if (statusCode > ResponseStatus.OK) {
         state.state = Status.ERROR;
 
-        throw new Error("Registration failed");
+        throw new RequestError('User alredy exist', statusCode);
       }
 
       loginScenarios(state, { token, username });
