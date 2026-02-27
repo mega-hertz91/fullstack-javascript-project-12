@@ -15,14 +15,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
         password: "",
       },
       validationSchema: validationScheme,
-      onSubmit: async (values, { setFieldError, resetForm }) => {
-        try {
-            await onSubmit(values);
-            resetForm();
-        } catch (error) {
-            setFieldError("password", error.message || "Login failed");
-        }
-      },
+      onSubmit,
     });
 
     return (
