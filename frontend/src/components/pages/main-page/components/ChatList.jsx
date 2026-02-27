@@ -6,7 +6,8 @@ import {
   useGetMessagesQuery,
   useCreateMessageMutation,
 } from "@/store/services/messages.service";
-import {socket} from "@/socket";
+import { socket } from "@/socket";
+import { createDangerAlert } from "@/utils/alert.util";
 
 /**
  * MessageForm component for handling message input and submission. It uses Formik for form state management and validation. On submit, it sends the message to the server and resets the form.
@@ -71,14 +72,8 @@ const ChatList = ({ channelId }) => {
       refetch();
     } catch (error) {
       dispatch(
-        addAlert({
-          id: Date.now(),
-          message: "Failed to send message: " + errorCreateMessage.error + " " + error.message,
-          type: "danger",
-          createdAt: new Date().toISOString(),
-        }),
+        addAlert(createDangerAlert("Failed to send message: " + errorCreateMessage.error + " " + error.message)),
       );
-      // TODO: add service for create alerts and use it here instead of dispatching action directly
     }
   };
 
