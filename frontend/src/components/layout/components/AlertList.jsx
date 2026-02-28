@@ -12,7 +12,7 @@ const AlertList = () => {
 
   return (
     <Container className="position-fixed" style={{ top: "5%", zIndex: 9999 }}>
-      <ul className="list-unstyled">
+      <ul className="list-unstyled m-0 p-0">
         {alerts.length > 0 &&
           alerts.map((alert) => (
             <li key={alert.id}>

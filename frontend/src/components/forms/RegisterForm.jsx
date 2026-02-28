@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
-import { Button, FormGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import { Button, FormGroup, Spinner } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
 const RegisterForm = ({ onSubmit, validationScheme }) => {
@@ -29,7 +29,8 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
             value={registerFormik.values.username}
             onChange={registerFormik.handleChange}
             isInvalid={
-              !!registerFormik.errors.username && registerFormik.touched.username
+              !!registerFormik.errors.username &&
+              registerFormik.touched.username
             }
           />
           <Form.Control.Feedback type="invalid">
@@ -45,7 +46,8 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
             value={registerFormik.values.password}
             onChange={registerFormik.handleChange}
             isInvalid={
-              !!registerFormik.errors.password && registerFormik.touched.password
+              !!registerFormik.errors.password &&
+              registerFormik.touched.password
             }
           />
           <Form.Control.Feedback type="invalid">
@@ -61,7 +63,8 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
             value={registerFormik.values.confirmPassword}
             onChange={registerFormik.handleChange}
             isInvalid={
-              !!registerFormik.errors.confirmPassword && registerFormik.touched.confirmPassword
+              !!registerFormik.errors.confirmPassword &&
+              registerFormik.touched.confirmPassword
             }
           />
           <Form.Control.Feedback type="invalid">
@@ -76,6 +79,9 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
             disabled={!registerFormik.isValid || registerFormik.isSubmitting}
             type="submit"
           >
+            {registerFormik.isSubmitting && (
+              <Spinner animation="border" size="sm" className="me-2" />
+            )}
             Sign up
           </Button>
         </FormGroup>

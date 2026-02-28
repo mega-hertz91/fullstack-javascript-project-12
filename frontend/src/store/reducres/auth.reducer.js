@@ -27,7 +27,7 @@ export const login = createAsyncThunk(
     const data = await response.json();
     return data;
     } catch (error) {
-      throw new RequestError(error.message);
+      throw new RequestError(error.message + " Please check your internet connection and try again");
     }
   },
 );
@@ -57,7 +57,7 @@ export const signUp = createAsyncThunk(
     const data = await response.json();
     return data;
     } catch (error) {
-      throw new RequestError(error.message);
+      throw new RequestError(error.message + " Please check your internet connection and try again");
     }
   },
 );

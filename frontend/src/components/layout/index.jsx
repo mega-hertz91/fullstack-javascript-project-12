@@ -27,8 +27,8 @@ const BaseLayout = ({ children }) => {
           </h1>
           {username && (
             <ButtonGroup aria-label="Basic example">
-              <Button variant="light">{username}</Button>
-              <Button variant="light" onClick={handleLogout}>
+              <Button variant="light">username: {username}</Button>
+              <Button variant="primary" onClick={handleLogout}>
                 logout
               </Button>
             </ButtonGroup>
