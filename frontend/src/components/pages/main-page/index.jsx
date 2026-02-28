@@ -33,7 +33,9 @@ const Page = () => {
         <Container className="py-5 h-100">
           <Row className="h-100">
             <Col
-              lg={3}
+              sm={12}
+              md={3}
+              xl={2}
               className="border rounded-3 h-100 overflow-hidden p-0 mr-2"
             >
               <ChannelList
@@ -43,7 +45,9 @@ const Page = () => {
               />
             </Col>
             <Col
-              lg={9}
+              sm={12}
+              md={9}
+              xl={10}
               className="border rounded-3 h-100 overflow-hidden flex-column d-flex p-0 ml-2"
             >
               <ChatList channelId={currentChanel?.id} />

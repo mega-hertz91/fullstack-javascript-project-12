@@ -17,17 +17,19 @@ export const login = createAsyncThunk(
   async ({ username, password }) => {
     try {
       const response = await fetch("/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    const data = await response.json();
-    return data;
+      const data = await response.json();
+      return data;
     } catch (error) {
-      throw new RequestError(error.message + " Please check your internet connection and try again");
+      throw new RequestError(
+        error.message + " Please check your internet connection and try again",
+      );
     }
   },
 );
@@ -36,7 +38,7 @@ export const login = createAsyncThunk(
  * Logout thunk. In a real app, you might want to call an API endpoint to invalidate the token on the server side.
  */
 export const logout = createAsyncThunk("auth/logout", async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate async logout (e.g., API call)
+  await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call delay
 });
 
 /**
@@ -47,29 +49,31 @@ export const signUp = createAsyncThunk(
   async ({ username, password }) => {
     try {
       const response = await fetch("/api/v1/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    const data = await response.json();
-    return data;
+      const data = await response.json();
+      return data;
     } catch (error) {
-      throw new RequestError(error.message + " Please check your internet connection and try again");
+      throw new RequestError(
+        error.message + " Please check your internet connection and try again",
+      );
     }
   },
 );
 
-const loginScenarios = (state, {username, token}) => {
+const loginScenarios = (state, { username, token }) => {
   state.isAuth = true;
   state.username = username;
   state.token = token;
 
   localStorage.setItem("authToken", token);
   localStorage.setItem("authUsername", username);
-}
+};
 
 const logoutScenarios = (state) => {
   state.isAuth = false;
@@ -78,7 +82,7 @@ const logoutScenarios = (state) => {
 
   localStorage.removeItem("authToken");
   localStorage.removeItem("authUsername");
-}
+};
 
 const token = localStorage.getItem("authToken");
 const userName = localStorage.getItem("authUsername");
@@ -138,17 +142,17 @@ const authSlice = createSlice({
       state.state = Status.LOADING;
     });
     builder.addCase(signUp.fulfilled, (state, action) => {
-       const { statusCode, token = null, username = null } = action.payload;
+      const { statusCode, token = null, username = null } = action.payload;
 
       if (statusCode > ResponseStatus.OK) {
         state.state = Status.ERROR;
 
-        throw new RequestError('User alredy exist', statusCode);
+        throw new RequestError("User alredy exist", statusCode);
       }
 
       loginScenarios(state, { token, username });
       state.state = Status.SUCCESS;
-    }); 
+    });
     builder.addCase(signUp.rejected, (state) => {
       state.state = Status.ERROR;
     });

@@ -1,20 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/reducres/auth.reducer";
+import { logout } from "@/store/reducres/auth.reducer";
 import { Link } from "react-router-dom";
+import { addAlert } from "@/store/reducres/alert.reducer";
+import { createDangerAlert } from "@/utils/alert.util";
 
 /**  
  * Import Bootstrap components
  * You can customize the layout and styling as needed
  */
-import { Container, ButtonGroup, Button, Alert } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import AlertList from "./components/AlertList";
+import { SimpleModal } from "@/components/modals/";
 
 const BaseLayout = ({ children }) => {
   const { username } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout =  async () => {
+    try {
+      await dispatch(logout()).unwrap();
+    } catch (error) {
+      dispatch(addAlert(createDangerAlert("Message: " + error.message)));
+    }
   };
 
   return (
@@ -26,12 +33,16 @@ const BaseLayout = ({ children }) => {
             <Link to="/">Chat</Link>
           </h1>
           {username && (
-            <ButtonGroup aria-label="Basic example">
-              <Button variant="light">username: {username}</Button>
-              <Button variant="primary" onClick={handleLogout}>
-                logout
-              </Button>
-            </ButtonGroup>
+            <div className="d-flex align-items-center gap-3">
+              <SimpleModal
+                trigger={<Button variant="primary">Logout</Button>}
+                onSuccess={handleLogout}
+                title="Confirm Logout"
+                body={<p>Are you sure you want to log out?</p>}
+                buttonCancel="Cancel"
+                buttonApprove="Logout"
+              />
+            </div>
           )}
         </header>
       </Container>

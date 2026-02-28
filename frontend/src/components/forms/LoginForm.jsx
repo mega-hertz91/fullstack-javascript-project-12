@@ -21,9 +21,9 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
     return (
       <Form
         onSubmit={loginFormik.handleSubmit}
-        className="p-3 border rounded w-50 mx-auto"
+        className="p-3 border rounded"
       >
-        <h1 className="fs-2">Sing in</h1>
+        <h1 className="fs-2">Sign in</h1>
         <Form.Group>
           <Form.Label htmlFor="username">Login</Form.Label>
           <Form.Control

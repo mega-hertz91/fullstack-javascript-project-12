@@ -6,7 +6,7 @@ import { addAlert } from "@/store/reducres/alert.reducer";
 import { ResponseStatus } from "@/constants/";
 import { createDangerAlert } from "@/utils/alert.util";
 
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import BaseLayout from "@/components/layout";
 
 /**
@@ -34,10 +34,14 @@ const Page = () => {
   return (
     <BaseLayout>
       <Container className="py-5">
-        <RegisterForm
-          onSubmit={signupHandler}
-          validationScheme={signupScheme}
-        />
+        <Row>
+          <Col xl={4} lg={6} md={8} sm={12} className="mx-auto">
+            <RegisterForm
+              onSubmit={signupHandler}
+              validationScheme={signupScheme}
+            />
+          </Col>
+        </Row>
       </Container>
     </BaseLayout>
   );

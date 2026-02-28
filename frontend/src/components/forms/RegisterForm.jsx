@@ -17,7 +17,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
     return (
       <Form
         onSubmit={registerFormik.handleSubmit}
-        className="p-3 border rounded w-50 mx-auto"
+        className="p-3 border rounded"
       >
         <h1 className="fs-2">Sing up</h1>
         <Form.Group>

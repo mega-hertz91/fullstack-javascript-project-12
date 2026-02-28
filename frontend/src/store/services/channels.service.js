@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { socket } from "@/socket";
 
 export const chanelsApi = createApi({
   reducerPath: "chanelsApi",
@@ -19,8 +20,35 @@ export const chanelsApi = createApi({
   endpoints: (build) => ({
     getChanels: build.query({
       query: () => "channels",
+      async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        try {
+          await cacheDataLoaded;
+          socket.connect();
+
+          const handleNewChannel = (channel) => {
+            updateCachedData((draft) => {
+              draft.push(channel);
+            });
+          };
+
+          socket.on("newChannel", handleNewChannel);
+
+          await cacheEntryRemoved;
+          socket.off("newChannel", handleNewChannel);
+          socket.disconnect();
+        } catch (error) {
+          console.error("WebSocket error:", error);
+        }
+      },
+    }),
+    createChanel: build.mutation({
+      query: (newChanel) => ({
+        url: "channels",
+        method: "POST",
+        body: newChanel,
+      }),
     }),
   }),
 });
 
-export const { useGetChanelsQuery } = chanelsApi;
+export const { useGetChanelsQuery, useCreateChanelMutation } = chanelsApi;

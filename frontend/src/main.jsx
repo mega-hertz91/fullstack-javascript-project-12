@@ -11,8 +11,8 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <ThemeProvider
-        breakpoints={["xxxl", "xxl", "xl", "lg"]}
-        minBreakpoint="lg"
+        breakpoints={["xxl", "xl", "lg", "md", "sm"]}
+        minBreakpoint="sm"
       >
         <App />
       </ThemeProvider>
