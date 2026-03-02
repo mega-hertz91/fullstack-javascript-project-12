@@ -1,6 +1,6 @@
-import { Form, Button, Badge } from "react-bootstrap";
+import { Form, Button, Badge, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addAlert } from "@/store/reducres/alert.reducer";
 import {
   useGetMessagesQuery,
@@ -8,6 +8,7 @@ import {
 } from "@/store/services/messages.service";
 import { socket } from "@/socket";
 import { createDangerAlert } from "@/utils/alert.util";
+import { messageScheme } from "@/validation-schemes/";
 
 /**
  * MessageForm component for handling message input and submission. It uses Formik for form state management and validation. On submit, it sends the message to the server and resets the form.
@@ -20,6 +21,7 @@ const MessageForm = ({ onSubmit }) => {
     initialValues: {
       message: "",
     },
+    validationSchema: messageScheme,
     onSubmit: async (values, { resetForm }) => {
       await onSubmit(values);
       resetForm();
@@ -27,17 +29,40 @@ const MessageForm = ({ onSubmit }) => {
   });
 
   return (
-    <Form className="p-3" onSubmit={messageForm.handleSubmit}>
-      <Form.Group className="d-flex" controlId="messageInput">
+    <Form className="p-3 d-flex" onSubmit={messageForm.handleSubmit}>
+      <Form.Group className="w-100 position-relative">
         <Form.Control
           type="text"
           placeholder="Type your message..."
           name="message"
           value={messageForm.values.message}
           onChange={messageForm.handleChange}
+          isInvalid={
+            !!messageForm.errors.message && messageForm.touched.message
+          }
         />
-        <Button variant="primary" type="submit">
-          Send
+        <Form.Control.Feedback
+          type="invalid"
+          className="position-absolute bottom-100"
+        >
+          {messageForm.errors.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="d-flex align-items-center">
+        <Button
+          variant="primary"
+          type="submit"
+          className="d-flex"
+          disabled={messageForm.isSubmitting || !messageForm.isValid}
+        >
+          {messageForm.isSubmitting && (
+            <Spinner
+              animation="border"
+              size="sm"
+              className="me-2 mt-1 bg-transparent"
+            />
+          )}
+          <span>Send</span>
         </Button>
       </Form.Group>
     </Form>
@@ -47,8 +72,7 @@ const MessageForm = ({ onSubmit }) => {
 /**
  * ChatList component for displaying messages of the current channel. It fetches messages from the server and listens for new messages via WebSocket. Messages are filtered by channelId to show only relevant messages for the current channel.
  */
-const ChatList = ({ channelId }) => {
-  const { username } = useSelector((state) => state.auth);
+const ChatList = ({ channelId, username }) => {
   const dispatch = useDispatch();
 
   /**

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 /**
  * Styles * You can customize the styles as needed
  */
-import { Button, FormGroup } from 'react-bootstrap';
+import { Button, FormGroup, Spinner } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
 const LoginForm = ({ onSubmit, validationScheme }) => {
@@ -21,9 +21,9 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
     return (
       <Form
         onSubmit={loginFormik.handleSubmit}
-        className="p-3 border rounded w-50 mx-auto"
+        className="p-3 border rounded"
       >
-        <h1 className="fs-2">Sing in</h1>
+        <h1 className="fs-2">Sign in</h1>
         <Form.Group>
           <Form.Label htmlFor="username">Login</Form.Label>
           <Form.Control
@@ -64,6 +64,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
             disabled={!loginFormik.isValid || loginFormik.isSubmitting}
             type="submit"
           >
+            {loginFormik.isSubmitting && <Spinner animation="border" size="sm" className="me-2" />}
             Login
           </Button>
         </FormGroup>
