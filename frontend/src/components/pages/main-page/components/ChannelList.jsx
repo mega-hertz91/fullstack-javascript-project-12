@@ -37,7 +37,7 @@ const Channels = (props) => {
   }
 
   const updateChannelHandler = async (values, { resetForm, setFieldError}) => {
-    if (checkAlreadyExists(chanels, values.name)) {
+    if (checkAlreadyExists(chanels.filter((chanel) => chanel.name !== currentChanel?.name), values.name)) {
       setFieldError("name", "Channel with this name already exists");
       throw new Error("Channel with this name already exists");
     }
