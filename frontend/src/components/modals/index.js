@@ -1,2 +1,3 @@
-export { default as SimpleModal } from './simple.modal';
-export { default as FormModal } from './form.modal';
+export { default as AppModal } from './modal';
+export { default as ChannelModal } from './Channel.modal';
+export { default as LogoutModal } from './logout.modal';

@@ -1,6 +1,6 @@
 import { Form, Button, Badge, Spinner } from "react-bootstrap";
 import { useFormik } from "formik";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addAlert } from "@/store/reducres/alert.reducer";
 import {
   useGetMessagesQuery,
@@ -72,8 +72,7 @@ const MessageForm = ({ onSubmit }) => {
 /**
  * ChatList component for displaying messages of the current channel. It fetches messages from the server and listens for new messages via WebSocket. Messages are filtered by channelId to show only relevant messages for the current channel.
  */
-const ChatList = ({ channelId }) => {
-  const { username } = useSelector((state) => state.auth);
+const ChatList = ({ channelId, username }) => {
   const dispatch = useDispatch();
 
   /**

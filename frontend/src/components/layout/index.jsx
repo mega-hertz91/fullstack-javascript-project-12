@@ -8,15 +8,15 @@ import { createDangerAlert } from "@/utils/alert.util";
  * Import Bootstrap components
  * You can customize the layout and styling as needed
  */
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Modal } from "react-bootstrap";
 import AlertList from "./components/AlertList";
-import { SimpleModal } from "@/components/modals/";
+import { AppModal, LogoutModal } from "@/components/modals/";
 
 const BaseLayout = ({ children }) => {
   const { username } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const handleLogout =  async () => {
+  const handleLogout = async () => {
     try {
       await dispatch(logout()).unwrap();
     } catch (error) {
@@ -34,14 +34,9 @@ const BaseLayout = ({ children }) => {
           </h1>
           {username && (
             <div className="d-flex align-items-center gap-3">
-              <SimpleModal
-                trigger={<Button variant="primary">Logout</Button>}
-                onSuccess={handleLogout}
-                title="Confirm Logout"
-                body={<p>Are you sure you want to log out?</p>}
-                buttonCancel="Cancel"
-                buttonApprove="Logout"
-              />
+              <AppModal trigger={<Button variant="primary">Logout</Button>}>
+                <LogoutModal onLogout={handleLogout} />
+              </AppModal>
             </div>
           )}
         </header>

@@ -10,17 +10,16 @@ export const chanelsApi = createApi({
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-      // You can set other headers too, e.g., Content-Type
-      if (!headers.has("Content-Type")) {
-        headers.set("Content-Type", "application/json");
-      }
       return headers;
     },
   }),
   endpoints: (build) => ({
     getChanels: build.query({
       query: () => "channels",
-      async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
         try {
           await cacheDataLoaded;
           socket.connect();
@@ -31,10 +30,18 @@ export const chanelsApi = createApi({
             });
           };
 
+          const handleDeleteChannel = ({ id: channelId }) => {
+            updateCachedData((draft) => {
+              return draft.filter((channel) => channel.id !== channelId);
+            });
+          };
+
           socket.on("newChannel", handleNewChannel);
+          socket.on("removeChannel", handleDeleteChannel);
 
           await cacheEntryRemoved;
           socket.off("newChannel", handleNewChannel);
+          socket.off("removeChannel", handleDeleteChannel);
           socket.disconnect();
         } catch (error) {
           console.error("WebSocket error:", error);
@@ -46,9 +53,28 @@ export const chanelsApi = createApi({
         url: "channels",
         method: "POST",
         body: newChanel,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    updateChannel: build.mutation({
+      query: ({ id, ...updatedData }) => ({
+        url: `channels/${id}`,
+        method: "PATCH",
+        body: updatedData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    deleteChannel: build.mutation({
+      query: ({ id }) => ({
+        url: `channels/${id}`,
+        method: "DELETE",
       }),
     }),
   }),
 });
 
-export const { useGetChanelsQuery, useCreateChanelMutation } = chanelsApi;
+export const { useGetChanelsQuery, useCreateChanelMutation, useUpdateChannelMutation, useDeleteChannelMutation } = chanelsApi;
