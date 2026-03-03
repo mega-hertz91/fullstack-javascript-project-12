@@ -41,6 +41,14 @@ const resources = {
       },
       common: {
         allRightReserved: "All rights reserved",
+      },
+      toast: {
+        createSuccess: "created successfully",
+        updateSuccess: "updated successfully",
+        deleteSuccess: "deleted successfully",
+        createFailed: "failed to create",
+        updateFailed: "failed to update",
+        deleteFailed: "failed to delete",
       }
     },
   },
@@ -80,6 +88,14 @@ const resources = {
       },
       common: {
         allRightReserved: "Все права защищены",
+      },
+      toast: {
+        createSuccess: "успешно создано",
+        updateSuccess: "успешно обновлено",
+        deleteSuccess: "успешно удалено",
+        createFailed: "не удалось создать",
+        updateFailed: "не удалось обновить",
+        deleteFailed: "не удалось удалить",
       },
     },
   },

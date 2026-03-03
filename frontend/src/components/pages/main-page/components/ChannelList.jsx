@@ -5,6 +5,7 @@ import {
 } from "@/store/services/channels.service";
 import { isExistIetmInArray } from "@/utils/common.utils";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 import ChannelItem from "./ChannelItem";
 import { AppModal, ChannelModal } from "@/components/modals";
@@ -40,6 +41,7 @@ const Channels = (props) => {
     refetch();
     resetForm();
     setChannel(data);
+    toast.success(t('entities.channel') + ' ' + t('toast.createSuccess'));
   };
 
   /**
@@ -52,6 +54,7 @@ const Channels = (props) => {
     refetch();
     resetForm();
     setChannel(chanels.at(-2));
+    toast.success(t('entities.channel') + ' ' + t('toast.deleteSuccess'));
   };
 
   /**
@@ -77,6 +80,7 @@ const Channels = (props) => {
     refetch();
     resetForm();
     setChannel(values);
+    toast.success(t('toast.updateSuccess'));
   };
 
   return (

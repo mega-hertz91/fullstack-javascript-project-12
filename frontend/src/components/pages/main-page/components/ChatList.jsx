@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { addAlert } from "@/store/reducres/alert.reducer";
 import {
   useGetMessagesQuery,
   useCreateMessageMutation,
   useDeleteMessageMutation,
   useUpdateMessageMutation,
 } from "@/store/services/messages.service";
-import { createDangerAlert } from "@/utils/alert.util";
 import { messageScheme } from "@/validation-schemes/";
 import { isEqualString } from "@/utils/common.utils";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 
 import ChatItem from "./ChatItem";
-import { Form, Button, Badge, Spinner } from "react-bootstrap";
+import { Form, Button, Badge, Spinner, Alert } from "react-bootstrap";
 
 /**
  * MessageForm component for handling message input and submission. It uses Formik for form state management and validation. On submit, it sends the message to the server and resets the form.
@@ -93,7 +91,6 @@ const MessageForm = ({ onSubmit, id = null, body = "test", setFormState }) => {
  * ChatList component for displaying messages of the current channel. It fetches messages from the server and listens for new messages via WebSocket. Messages are filtered by channelId to show only relevant messages for the current channel.
  */
 const ChatList = ({ channelId, username, online }) => {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const lastMesageRef = useRef(null);
   const [formState, setFormState] = useState({ id: null, body: "" });
@@ -132,35 +129,35 @@ const ChatList = ({ channelId, username, online }) => {
         }).unwrap();
         refetch();
       } catch (error) {
-        dispatch(
-          addAlert(
-            createDangerAlert("Failed to send message: " + error.message),
-          ),
-        );
+        toast.error(t("entities.message") + " " + t("toast.createFailed") + ": " + error?.message);
       }
   }
 
-  const deleteMessageHandler = async (payload) => {
+  const deleteMessageHandler = async (values) => {
     try {
-      await deleteMessage(payload).unwrap();
+      await deleteMessage(values).unwrap();
       refetch();
+      toast.success(t('entities.message') + ' ' + t('toast.deleteSuccess'));
     } catch (error) {
-      dispatch(
-        addAlert(createDangerAlert("Failed to delete message: " + error.message)),
-      );
+      toast.error(t('entities.message') + ' ' + t('toast.deleteFailed') + ": " + error?.message);
     }
   };
 
-  const updateMessageHandler = async (payload) => {
-    try {      
-      await updateMessage(payload).unwrap();
+  const updateMessageHandler = async (values) => {
+    try {
+      await updateMessage(values).unwrap();
       refetch();
+      toast.success(t("entities.message") + " " + t("toast.updateSuccess"));
     } catch (error) {
-      dispatch(
-        addAlert(createDangerAlert("Failed to update message: " + error.message)),
+      toast.error(
+        t("entities.message") +
+          " " +
+          t("toast.updateFailed") +
+          ": " +
+          error?.message,
       );
     }
-  }
+  };
 
   useEffect(() => {
     if (lastMesageRef.current) {
@@ -171,9 +168,10 @@ const ChatList = ({ channelId, username, online }) => {
   return (
     <>
       {error && (
-        <p className="text-danger">
-          Error loading messages: {error.toString()}
-        </p>
+        <Alert variant="danger">
+          <Alert.Heading>Connection error</Alert.Heading>
+          Error loading messages: {error.error}
+        </Alert>
       )}
       {isLoading && <p>Loading messages...</p>}
       {!isLoading && !error && (
@@ -214,7 +212,11 @@ const ChatList = ({ channelId, username, online }) => {
             {/** end Messages list */}
 
             {/** Message form */}
-            <MessageForm {...formState} onSubmit={onSubmitMessage} setFormState={setFormState} />
+            <MessageForm
+              {...formState}
+              onSubmit={onSubmitMessage}
+              setFormState={setFormState}
+            />
             {/** end Message form */}
           </div>
         </>
