@@ -7,7 +7,7 @@ const Page = () => {
 
   return (
     <BaseLayout>
-      <Container className="flex flex-col items-center justify-center h-screen mx-auto d-flex flex-column h-100 justify-content-center align-items-center">
+      <div className="flex flex-col items-center justify-center h-screen mx-auto d-flex flex-column justify-content-center align-items-center h-100">
         <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
         <p className="mt-4 text-lg">
           The page you are looking for does not exist.
@@ -22,7 +22,7 @@ const Page = () => {
             </Button>
           )}
         </ButtonGroup>
-      </Container>
+      </div>
     </BaseLayout>
   );
 }

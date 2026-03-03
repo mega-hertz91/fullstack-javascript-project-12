@@ -49,60 +49,56 @@ const Page = () => {
           Error loading channels: {error.error}
         </Alert>
       )}
-      <Container className="py-5 h-100">
-        <Row className="h-100">
-          <Col
-            sm={12}
-            md={3}
-            xl={2}
-            className="border rounded-3 h-100 overflow-hidden p-0 mr-2"
-          >
-            {isLoading && (
-              <>
-                <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end mb-0">
-                  <Placeholder as="span" animation="glow">
-                    <Placeholder sm={12} />
-                  </Placeholder>
-                </p>
-                <Placeholder
-                  as={ButtonGroup}
-                  vertical
-                  className="w-100 bg-transparent"
-                  animation="glow"
-                  variant="secondary"
-                >
-                  <Placeholder as={Button} sm={12} bg="primary" />
-                  <Placeholder as={Button} sm={12} bg="secondary" />
-                  <Placeholder as={Button} sm={12} bg="secondary" />
+      <Row className="h-100">
+        <Col
+          sm={3}
+          xl={2}
+          className="border rounded-3 overflow-hidden p-0 mr-2"
+        >
+          {isLoading && (
+            <>
+              <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end mb-0">
+                <Placeholder as="span" animation="glow">
+                  <Placeholder sm={12} />
                 </Placeholder>
-              </>
-            )}
-            {!isLoading && !error && (
-              <ChannelList
-                chanels={chanels}
-                currentChanel={currentChanel}
-                setChannel={setChannel}
-                refetch={refetch}
-                username={username}
-              />
-            )}
-          </Col>
-          <Col
-            sm={12}
-            md={9}
-            xl={10}
-            className="border rounded-3 h-100 overflow-hidden flex-column d-flex p-0 ml-2"
-          >
-            {!isLoading && !error && (
-              <ChatList
-                online={online}
-                channelId={currentChanel?.id}
-                username={username}
-              />
-            )}
-          </Col>
-        </Row>
-      </Container>
+              </p>
+              <Placeholder
+                as={ButtonGroup}
+                vertical
+                className="w-100 bg-transparent"
+                animation="glow"
+                variant="secondary"
+              >
+                <Placeholder as={Button} sm={12} bg="primary" />
+                <Placeholder as={Button} sm={12} bg="secondary" />
+                <Placeholder as={Button} sm={12} bg="secondary" />
+              </Placeholder>
+            </>
+          )}
+          {!isLoading && !error && (
+            <ChannelList
+              chanels={chanels}
+              currentChanel={currentChanel}
+              setChannel={setChannel}
+              refetch={refetch}
+              username={username}
+            />
+          )}
+        </Col>
+        <Col
+          sm={9}
+          xl={10}
+          className="border rounded-3 overflow-hidden flex-column d-flex p-0 ml-2"
+        >
+          {!isLoading && !error && (
+            <ChatList
+              online={online}
+              channelId={currentChanel?.id}
+              username={username}
+            />
+          )}
+        </Col>
+      </Row>
     </BaseLayout>
   );
 };

@@ -3,8 +3,7 @@ import { login } from "@/store/reducres/auth.reducer";
 import { loginScheme } from "@/validation-schemes";
 import { useDispatch } from 'react-redux';
 import { ResponseStatus } from "@/constants";
-import { addAlert } from "@/store/reducres/alert.reducer";
-import { createDangerAlert } from "@/utils/alert.util";
+import { toast } from "react-toastify";
 
 
 
@@ -28,20 +27,16 @@ const Page = () => {
       }
 
       if (name === "RequestError" && statusCode === 0) {
-        dispatch(addAlert(createDangerAlert("Network error: " + message)));
+        toast.error(message)
       }
     }
   };
 
   return (
     <BaseLayout>
-      <Container className="py-5">
-        <Row>
-          <Col xl={5} lg={6} md={8} sm={12} className="mx-auto">
-            <LoginForm onSubmit={handleLogin} validationScheme={loginScheme} />
-          </Col>
-        </Row>
-      </Container>
+      <Col xl={5} lg={6} md={8} sm={12} className="mx-auto d-flex align-items-center h-100">
+        <LoginForm onSubmit={handleLogin} validationScheme={loginScheme} />
+      </Col>
     </BaseLayout>
   );
 }

@@ -176,7 +176,7 @@ const ChatList = ({ channelId, username, online }) => {
       {isLoading && <p>Loading messages...</p>}
       {!isLoading && !error && (
         <>
-          <div className="flex-grow-1 d-flex flex-column">
+          <div className="h-100 d-flex flex-column">
             {/** Chatlist header */}
             <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
               <Badge bg={online ? "success" : "secondary"} className="ms-auto">
@@ -187,7 +187,7 @@ const ChatList = ({ channelId, username, online }) => {
 
             {/** Messages list */}
             <ul
-              className="list-unstyled px-2 overflow-auto"
+              className="list-unstyled px-2 overflow-auto flex-grow-1"
               style={{ maxHeight: "500px" }}
             >
               {filteredMessages.map((message) => (
