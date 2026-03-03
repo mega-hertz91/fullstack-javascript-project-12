@@ -13,6 +13,8 @@ const resources = {
         logout: "Logout",
         notAccount: "Don't have an account",
         existAccount: "Already have an account",
+        logoutConfirmQuestion: "Are you sure you want to logout?",
+        logoutConfirmTitile: "Logout confirmation",
       },
       fields: {
         login: "Login",
@@ -50,6 +52,8 @@ const resources = {
         logout: "Выйти",
         notAccount: "Нет аккаунта",
         existAccount: "Есть аккаунт",
+        logoutConfirmQuestion: "Вы уверены, что хотите выйти?",
+        logoutConfirmTitile: "Подтверждение выхода",
       },
       fields: {
         login: "Логин",

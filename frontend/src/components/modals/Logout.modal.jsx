@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 /**
  * onClose - function to close the modal, passed from SimpleModal
  * onLogout - function to perform logout action, passed from parent component
  */
 const LogoutModal = ({ onClose, onLogout }) => {
-    const [loading, setLoading] = useState(false);
+    const { t } = useTranslation();
+    const [isLoading, setLoading] = useState(false);
 
     const handleLogoutClick = async () => {
         setLoading(true);
@@ -17,15 +19,16 @@ const LogoutModal = ({ onClose, onLogout }) => {
     return (
         <>
             <Modal.Header closeButton>
-                <Modal.Title>Confirm Logout</Modal.Title>
+                <Modal.Title>{t("auth.logoutConfirmTitile")}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Are you sure you want to logout?</Modal.Body>
+            <Modal.Body>{t("auth.logoutConfirmQuestion")}</Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={onClose}>
-                    Cancel
+                    {t("formAction.cancel")}
                 </Button>
-                <Button variant="primary" onClick={handleLogoutClick} disabled={loading}>
-                    {loading ? "Logging out..." : "Logout"}
+                <Button variant="primary" onClick={handleLogoutClick} disabled={isLoading}>
+                    { isLoading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" /> }
+                    {t("auth.logout")}
                 </Button>
             </Modal.Footer>
         </>
