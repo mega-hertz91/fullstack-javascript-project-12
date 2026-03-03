@@ -63,6 +63,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
           <Button
             disabled={!loginFormik.isValid || loginFormik.isSubmitting}
             type="submit"
+            variant="primary"
           >
             {loginFormik.isSubmitting && <Spinner animation="border" size="sm" className="me-2" />}
             Login

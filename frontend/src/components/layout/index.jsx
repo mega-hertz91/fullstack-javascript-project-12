@@ -30,7 +30,7 @@ const BaseLayout = ({ children }) => {
         <AlertList />
         <header className="py-3 d-flex justify-content-between align-items-center border-bottom">
           <h1>
-            <Link to="/">Chat</Link>
+            <Link to="/">Hexlet Chat</Link>
           </h1>
           {username && (
             <div className="d-flex align-items-center gap-3">
@@ -46,7 +46,7 @@ const BaseLayout = ({ children }) => {
       </Container>
       <Container>
         <footer className="base-layout__footer">
-          <p>&copy; {new Date().getFullYear()} Chat. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Hexlet Chat. All rights reserved.</p>
         </footer>
       </Container>
     </div>

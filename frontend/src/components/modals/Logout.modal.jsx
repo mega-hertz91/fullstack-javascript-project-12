@@ -21,7 +21,7 @@ const LogoutModal = ({ onClose, onLogout }) => {
             </Modal.Header>
             <Modal.Body>Are you sure you want to logout?</Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onClose}>
+                <Button variant="light" onClick={onClose}>
                     Cancel
                 </Button>
                 <Button variant="primary" onClick={handleLogoutClick} disabled={loading}>

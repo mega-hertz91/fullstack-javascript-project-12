@@ -1,8 +1,7 @@
 import { useEffect, useState } from"react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useGetChanelsQuery } from "@/store/services/channels.service";
-import { addAlert } from "@/store/reducres/alert.reducer";
-import { socket } from "@/socket";
+import { socket, Event } from "@/socket";
 
 /**
  * Global component for main page. It contains channels list and chat content
@@ -14,13 +13,11 @@ import { Container, Row, Col } from "react-bootstrap";
  * Local component for channels list
  */
 import { ChannelList, ChatList } from "./components";
-import { createInfoAlert } from "@/utils/alert.util";
 
 const Page = () => {
-  const dispatch = useDispatch();
-
   const { username } = useSelector((state) => state.auth);
   const [currentChanel, setChannel] = useState(null);
+  const [online, setOnline] = useState(false);
   const { data: chanels, error, isLoading, refetch } = useGetChanelsQuery();
 
   // Init default channel
@@ -29,18 +26,20 @@ const Page = () => {
   }
 
   useEffect(() => {
-    const handleUpdateChannels = () => {
-      setChannel(chanels.at(0));
-      // TODO: add chat name to alert
-      dispatch(addAlert(createInfoAlert("Channels list updated")));
+    socket.connect();
+
+    const handleConnetction = () => {
+      setOnline(true);
     };
 
-    socket.on("removeChannel", handleUpdateChannels);
+    socket.on(Event.CONNECT, handleConnetction);
 
     return () => {
-      socket.off("removeChannel", handleUpdateChannels);
+      setOnline(false);
+      socket.off(Event.CONNECT, handleConnetction);
+      socket.disconnect(); 
     };
-  }, [chanels, dispatch]);
+  }, []);
 
   return (
     <BaseLayout>
@@ -73,7 +72,7 @@ const Page = () => {
               xl={10}
               className="border rounded-3 h-100 overflow-hidden flex-column d-flex p-0 ml-2"
             >
-              <ChatList channelId={currentChanel?.id} username={username} />
+              <ChatList online={online} channelId={currentChanel?.id} username={username} />
             </Col>
           </Row>
         </Container>

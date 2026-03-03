@@ -1,60 +1,88 @@
-import { AppModal, ChannelModal } from "@/components/modals";
 import {
   useCreateChanelMutation,
   useUpdateChannelMutation,
   useDeleteChannelMutation,
 } from "@/store/services/channels.service";
-import { ButtonGroup, Badge, Button, Dropdown } from "react-bootstrap";
+import { isExistIetmInArray } from "@/utils/common.utils";
 
-// TODO: Refactor to separate list and item components
-const checkAlreadyExists = (chanels, name) => chanels.map(({ name }) => name).includes(name);
+import ChannelItem from "./ChannelItem";
+import { AppModal, ChannelModal } from "@/components/modals";
+import { ButtonGroup, Badge, Button } from "react-bootstrap";
 
 const Channels = (props) => {
   const { chanels, currentChanel, setChannel, refetch } = props;
+
+  // CRUD operations for channels.
   const [createChanel] = useCreateChanelMutation();
   const [updateChanel] = useUpdateChannelMutation();
   const [deleteChanel] = useDeleteChannelMutation();
 
+  /**
+   * Create channel handler
+   * @param {Object} values // Values from Formik values
+   * @param {Object} // FormikBag values
+   */
   const createChannelHandler = async (values, { resetForm, setFieldError }) => {
-    if (checkAlreadyExists(chanels, values.name)) {
+    if (
+      isExistIetmInArray(
+        chanels.map(({ name }) => name),
+        values.name,
+      )
+    ) {
       setFieldError("name", "Channel with this name already exists");
       throw new Error("Channel with this name already exists");
     }
 
     const { data } = await createChanel(values);
-    resetForm();
+
     refetch();
-
+    resetForm();
     setChannel(data);
-  }
+  };
 
+  /**
+   * Delete channel handler
+   * @param {Object} values // Values from Formik values
+   * @param {Object} // FormikBag values
+   */
   const deleteChannelHandler = async (values, { resetForm }) => {
     await deleteChanel(values);
-    resetForm();
     refetch();
+    resetForm();
+    setChannel(chanels.at(-2));
+  };
 
-    setChannel(chanels.at(-2))
-  }
-
-  const updateChannelHandler = async (values, { resetForm, setFieldError}) => {
-    if (checkAlreadyExists(chanels.filter((chanel) => chanel.name !== currentChanel?.name), values.name)) {
+  /**
+   * Update channel handler
+   * @param {Object} values // Values from Formik values
+   * @param {Object} // FormikBag values
+   */
+  const updateChannelHandler = async (values, { resetForm, setFieldError }) => {
+    if (
+      isExistIetmInArray(
+        chanels
+          .map(({ name }) => name)
+          .filter((name) => name !== currentChanel?.name),
+        values.name,
+      )
+    ) {
       setFieldError("name", "Channel with this name already exists");
       throw new Error("Channel with this name already exists");
     }
 
     await updateChanel(values);
-    resetForm();
-    refetch();
 
-    // Update current channel if it's the one being edited
+    refetch();
+    resetForm();
     setChannel(values);
-  }
+  };
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-baseline mb-4 bg-light border-bottom">
+      <div className="d-flex justify-content-between align-items-baseline bg-light border-bottom">
+        {/** Channels header **/}
         <p className="p-2 m-0">
-          <Badge>#{currentChanel?.name}</Badge>
+          <Badge bg="dark">#{currentChanel?.name}</Badge>
         </p>
         <AppModal
           trigger={
@@ -73,65 +101,23 @@ const Channels = (props) => {
           <ChannelModal actionText="Create" onSubmit={createChannelHandler} />
         </AppModal>
       </div>
-      {/** TODO: destructure to list and item components **/}
+      {/** Channels list **/}
       {chanels && (
-        <ButtonGroup vertical className="w-100 px-3">
+        <ButtonGroup vertical className="w-100">
           {chanels.map(({ name, id, removable }) => (
-            <>
-              <Dropdown
-                as={ButtonGroup}
-                key={id}
-                className="d-flex justify-content-between"
-              >
-                <Button
-                  variant={`${id === currentChanel?.id ? "primary" : "light"}`}
-                  key={id}
-                  onClick={() => setChannel({ name, id })}
-                >
-                  #{name}
-                </Button>
-                {removable && (
-                  <>
-                    <Dropdown.Toggle
-                      split
-                      variant={`${id === currentChanel?.id ? "primary" : "light"}`}
-                      id="dropdown-split-basic"
-                    />
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <AppModal
-                          trigger={<span>edit</span>}
-                        >
-                          <ChannelModal
-                            actionText="Edit"
-                            onSubmit={(values, formikHelpers) => updateChannelHandler({ ...values, id }, formikHelpers)}
-                            name={name}
-                          />
-                        </AppModal>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <AppModal
-                          trigger={<span>delete</span>}
-                        >
-                          <ChannelModal
-                            disabled
-                            actionText="Delete"
-                            onSubmit={(values, formikHelpers) => deleteChannelHandler({ ...values, id }, formikHelpers)}
-                            name={name}
-                          />
-                        </AppModal>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </>
-                )}
-              </Dropdown>
-            </>
+            <ChannelItem
+              key={id}
+              channel={{ name, id, removable }}
+              isCurrentChannel={currentChanel?.id === id}
+              setChannel={setChannel}
+              onUpdateChannel={updateChannelHandler}
+              onDeleteChannel={deleteChannelHandler}
+            />
           ))}
         </ButtonGroup>
       )}
     </>
   );
-}
-
+};
 
 export default Channels;
