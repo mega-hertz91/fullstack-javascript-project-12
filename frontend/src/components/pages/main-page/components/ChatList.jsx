@@ -11,6 +11,7 @@ import {
 import { createDangerAlert } from "@/utils/alert.util";
 import { messageScheme } from "@/validation-schemes/";
 import { isEqualString } from "@/utils/common.utils";
+import { useTranslation } from "react-i18next";
 
 
 import ChatItem from "./ChatItem";
@@ -21,6 +22,7 @@ import { Form, Button, Badge, Spinner } from "react-bootstrap";
  */
 const MessageForm = ({ onSubmit, id = null, body = "test", setFormState }) => {
   const inputRef = useRef(null);
+  const { t } = useTranslation();
   /**
    * Formik form for handling message input and submission. On submit, it sends the message to the server and refetches the messages to update the chat list.
    */
@@ -80,7 +82,7 @@ const MessageForm = ({ onSubmit, id = null, body = "test", setFormState }) => {
               className="me-2 mt-1 bg-transparent"
             />
           )}
-          <span>Send</span>
+          <span>{t("formAction.send")}</span>
         </Button>
       </Form.Group>
     </Form>
@@ -92,6 +94,7 @@ const MessageForm = ({ onSubmit, id = null, body = "test", setFormState }) => {
  */
 const ChatList = ({ channelId, username, online }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const lastMesageRef = useRef(null);
   const [formState, setFormState] = useState({ id: null, body: "" });
 
@@ -179,7 +182,7 @@ const ChatList = ({ channelId, username, online }) => {
             {/** Chatlist header */}
             <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
               <Badge bg={online ? "success" : "secondary"} className="ms-auto">
-                {online ? "Online" : "Offline"}
+                {online ? t("chatList.online") : t("chatList.offline")}
               </Badge>
             </p>
             {/** end Chatlist header */}

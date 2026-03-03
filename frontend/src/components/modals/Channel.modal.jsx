@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { useEffect, useRef } from "react";
 import { channelScheme } from "@/validation-schemes";
+import { useTranslation } from "react-i18next";
 
 /** 
  * View for creating new channel. Used in AppModal component
@@ -8,6 +9,7 @@ import { channelScheme } from "@/validation-schemes";
 import { Modal, Form, Button, Spinner } from "react-bootstrap";
 
 const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const createForm = useFormik({
     initialValues: {
@@ -41,7 +43,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
     <>
       <Form onSubmit={createForm.handleSubmit} onClick={(e) => e.stopPropagation()}>
         <Modal.Header>
-          <p className="fs-4 mb-0 fw-medium">{actionText} channel</p>
+          <p className="fs-4 mb-0 fw-medium">{actionText}</p>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
@@ -68,7 +70,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
             type="reset"
             className="me-2"
           >
-            Cancel
+            {t('formAction.cancel')}
           </Button>
           <Button variant="primary" type="submit" disabled={!createForm.isValid || createForm.isSubmitting}>
             {createForm.isSubmitting && (

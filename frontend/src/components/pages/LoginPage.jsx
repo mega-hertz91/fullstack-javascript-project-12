@@ -37,7 +37,7 @@ const Page = () => {
     <BaseLayout>
       <Container className="py-5">
         <Row>
-          <Col xl={4} lg={6} md={8} sm={12} className="mx-auto">
+          <Col xl={5} lg={6} md={8} sm={12} className="mx-auto">
             <LoginForm onSubmit={handleLogin} validationScheme={loginScheme} />
           </Col>
         </Row>

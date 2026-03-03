@@ -2,6 +2,7 @@ import Badge from "react-bootstrap/Badge";
 import Alert from "react-bootstrap/Alert";
 import Dropdown from "react-bootstrap/Dropdown";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -19,6 +20,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
 })
 
 const ChatItem = ({ id, username, body, removable, isMe, onDelete, onUpdate }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Alert variant={isMe ? "success" : "light"} className="p-0 w-75">
@@ -29,16 +32,16 @@ const ChatItem = ({ id, username, body, removable, isMe, onDelete, onUpdate }) =
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => onUpdate({ id, body })}>
-                  edit
+                  {t("formAction.edit")}
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => onDelete({ id })}>
-                  delete
+                  {t("formAction.delete")}
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )}
           <Badge bg={isMe ? "success" : "dark"}>
-            {isMe ? "you" : username}
+            {isMe ? t("chatList.you") : username}
           </Badge>
         </div>
         <span className="fw-light d-block p-2">{body}</span>

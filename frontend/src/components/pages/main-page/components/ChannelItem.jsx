@@ -1,5 +1,6 @@
 import { AppModal, ChannelModal } from "@/components/modals";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const ClassName = {
     CURRENT: 'primary',
@@ -8,6 +9,7 @@ const ClassName = {
 }
 
 const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, onDeleteChannel }) => {
+  const { t } = useTranslation();
   const { id, name, removable } = channel;
 
   return (
@@ -34,9 +36,9 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
           />
           <Dropdown.Menu>
             <Dropdown.Item>
-              <AppModal trigger={<span>edit</span>}>
+              <AppModal trigger={<span>{t('formAction.edit')}</span>}>
                 <ChannelModal
-                  actionText="Edit"
+                  actionText={t('formAction.edit')}
                   onSubmit={(values, formikHelpers) =>
                     onUpdateChannel({ ...values, id }, formikHelpers)
                   }
@@ -45,10 +47,10 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
               </AppModal>
             </Dropdown.Item>
             <Dropdown.Item>
-              <AppModal trigger={<span>delete</span>}>
+              <AppModal trigger={<span>{t('formAction.delete')}</span>}>
                 <ChannelModal
                   disabled
-                  actionText="Delete"
+                  actionText={t('formAction.delete')}
                   onSubmit={(values, formikHelpers) =>
                     onDeleteChannel({ ...values, id }, formikHelpers)
                   }

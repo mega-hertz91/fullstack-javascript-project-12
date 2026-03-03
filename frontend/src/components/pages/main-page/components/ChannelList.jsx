@@ -4,12 +4,14 @@ import {
   useDeleteChannelMutation,
 } from "@/store/services/channels.service";
 import { isExistIetmInArray } from "@/utils/common.utils";
+import { useTranslation } from "react-i18next";
 
 import ChannelItem from "./ChannelItem";
 import { AppModal, ChannelModal } from "@/components/modals";
 import { ButtonGroup, Badge, Button } from "react-bootstrap";
 
 const Channels = (props) => {
+  const { t } = useTranslation();
   const { chanels, currentChanel, setChannel, refetch } = props;
 
   // CRUD operations for channels.
@@ -91,14 +93,14 @@ const Channels = (props) => {
               size="sm"
               className="p-1 mx-2"
               style={{ lineHeight: "8px" }}
-              aria-label="Add new channel"
-              title="Add new channel"
+              aria-label={t('formAction.create') + ' ' + t('entities.channel').toLocaleLowerCase()}
+              title={t('formAction.create') + ' ' + t('entities.channel').toLocaleLowerCase()}
             >
               +
             </Button>
           }
         >
-          <ChannelModal actionText="Create" onSubmit={createChannelHandler} />
+          <ChannelModal actionText={t('formAction.create') + ' ' + t('entities.channel').toLocaleLowerCase()} onSubmit={createChannelHandler} />
         </AppModal>
       </div>
       {/** Channels list **/}
