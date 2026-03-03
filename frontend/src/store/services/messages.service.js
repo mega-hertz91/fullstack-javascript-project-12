@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { socket } from "../../socket";
+import { socket, Event } from "../../socket";
+
+const ENTITY_PATH = "messages";
 
 export const messagesApi = createApi({
   reducerPath: "messagesApi",
@@ -10,16 +12,12 @@ export const messagesApi = createApi({
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-      // You can set other headers too, e.g., Content-Type
-      if (!headers.has("Content-Type")) {
-        headers.set("Content-Type", "application/json");
-      }
       return headers;
     },
   }),
   endpoints: (build) => ({
     getMessages: build.query({
-      query: () => `messages`,
+      query: () => ENTITY_PATH,
       async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
         try {
           await cacheDataLoaded;
@@ -31,10 +29,12 @@ export const messagesApi = createApi({
             });
           };
 
-          socket.on("newMessage", handleNewMessage);
+          socket.on(Event.NEW_MESSAGE, handleNewMessage);
 
           await cacheEntryRemoved;
-          socket.off("newMessage", handleNewMessage);
+
+          socket.off(Event.NEW_MESSAGE, handleNewMessage);
+          
           socket.disconnect();
         } catch (error) {
           console.error("WebSocket error:", error);
@@ -43,12 +43,31 @@ export const messagesApi = createApi({
     }),
     createMessage: build.mutation({
       query: (payload) => ({
-        url: `messages`,
+        url: ENTITY_PATH,
         method: "POST",
         body: payload,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }),
+    }),
+    updateMessage: build.mutation({
+      query: ({ id, ...payload }) => ({
+        url: `${ENTITY_PATH}/${id}`,
+        method: "PATCH",
+        body: payload,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }),
+    }),
+    deleteMessage: build.mutation({
+      query: ({id}) => ({
+        url: `${ENTITY_PATH}/${id}`,
+        method: "DELETE",
       }),
     }),
   }),
 });
 
-export const { useGetMessagesQuery, useCreateMessageMutation } = messagesApi;
+export const { useGetMessagesQuery, useCreateMessageMutation, useUpdateMessageMutation, useDeleteMessageMutation } = messagesApi;

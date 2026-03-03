@@ -1,5 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { socket } from "@/socket";
+import { socket, Event } from "@/socket";
+import { Method } from "@/constants";
+
+const ENTITY_PATH = "channels";
 
 export const chanelsApi = createApi({
   reducerPath: "chanelsApi",
@@ -15,7 +18,7 @@ export const chanelsApi = createApi({
   }),
   endpoints: (build) => ({
     getChanels: build.query({
-      query: () => "channels",
+      query: () => ENTITY_PATH,
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -36,12 +39,27 @@ export const chanelsApi = createApi({
             });
           };
 
-          socket.on("newChannel", handleNewChannel);
-          socket.on("removeChannel", handleDeleteChannel);
+          const handleRenameChannel = (updatedChannel) => {
+            updateCachedData((draft) => {
+              const index = draft.findIndex(
+                (channel) => channel.id === updatedChannel.id,
+              );
+              if (index !== -1) {
+                draft[index] = updatedChannel;
+              }
+            });
+          }
+
+          socket.on(Event.NEW_CHANNEL, handleNewChannel);
+          socket.on(Event.REMOVE_CHANNEL, handleDeleteChannel);
+          socket.on(Event.RENAME_CHANNEL, handleRenameChannel);
 
           await cacheEntryRemoved;
-          socket.off("newChannel", handleNewChannel);
-          socket.off("removeChannel", handleDeleteChannel);
+          
+          socket.off(Event.NEW_CHANNEL, handleNewChannel);
+          socket.off(Event.REMOVE_CHANNEL, handleDeleteChannel);
+          socket.off(Event.RENAME_CHANNEL, handleRenameChannel);
+
           socket.disconnect();
         } catch (error) {
           console.error("WebSocket error:", error);
@@ -50,8 +68,8 @@ export const chanelsApi = createApi({
     }),
     createChanel: build.mutation({
       query: (newChanel) => ({
-        url: "channels",
-        method: "POST",
+        url: ENTITY_PATH,
+        method: Method.POST,
         body: newChanel,
         headers: {
           "Content-Type": "application/json",
@@ -60,8 +78,8 @@ export const chanelsApi = createApi({
     }),
     updateChannel: build.mutation({
       query: ({ id, ...updatedData }) => ({
-        url: `channels/${id}`,
-        method: "PATCH",
+        url: `${ENTITY_PATH}/${id}`,
+        method: Method.PATCH,
         body: updatedData,
         headers: {
           "Content-Type": "application/json",
@@ -70,8 +88,8 @@ export const chanelsApi = createApi({
     }),
     deleteChannel: build.mutation({
       query: ({ id }) => ({
-        url: `channels/${id}`,
-        method: "DELETE",
+        url: `${ENTITY_PATH}/${id}`,
+        method: Method.DELETE,
       }),
     }),
   }),

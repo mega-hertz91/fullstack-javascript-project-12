@@ -10,3 +10,10 @@ export const ResponseStatus = {
     INTERNAL_SERVER_ERROR: 500,
     CONFLICT: 409,
 }
+
+export const Method = {
+    GET: "GET",
+    POST: "POST",
+    PATCH: "PATCH",
+    DELETE: "DELETE",
+}
