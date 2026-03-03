@@ -49,6 +49,11 @@ const resources = {
         createFailed: "failed to create",
         updateFailed: "failed to update",
         deleteFailed: "failed to delete",
+      },
+      notFound: {
+        title: "Page not found",
+        description: "The page you are looking for does not exist.",
+        backToHome: "Back to Home",
       }
     },
   },
@@ -97,6 +102,11 @@ const resources = {
         updateFailed: "не удалось обновить",
         deleteFailed: "не удалось удалить",
       },
+      notFound: {
+        title: "Страница не найдена",
+        description: "Страница, которую вы ищете, не существует.",
+        backToHome: "Вернуться на главную",
+      }
     },
   },
 };

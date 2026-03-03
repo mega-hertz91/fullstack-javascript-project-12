@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 
 import ChatItem from "./ChatItem";
-import { Form, Button, Badge, Spinner, Alert } from "react-bootstrap";
+import { Form, Button, Badge, Spinner, Alert, Placeholder } from "react-bootstrap";
 
 /**
  * MessageForm component for handling message input and submission. It uses Formik for form state management and validation. On submit, it sends the message to the server and resets the form.
@@ -173,54 +173,86 @@ const ChatList = ({ channelId, username, online }) => {
           Error loading messages: {error.error}
         </Alert>
       )}
-      {isLoading && <p>Loading messages...</p>}
-      {!isLoading && !error && (
-        <>
-          <div className="h-100 d-flex flex-column">
-            {/** Chatlist header */}
-            <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
-              <Badge bg={online ? "success" : "secondary"} className="ms-auto">
-                {online ? t("chatList.online") : t("chatList.offline")}
-              </Badge>
-            </p>
-            {/** end Chatlist header */}
+      <div className="h-100 d-flex flex-column">
+        {/** Chatlist header */}
+        <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
+          <Badge bg={online ? "success" : "secondary"} className="ms-auto">
+            {online ? t("chatList.online") : t("chatList.offline")}
+          </Badge>
+        </p>
+        {/** end Chatlist header */}
 
-            {/** Messages list */}
-            <ul
-              className="list-unstyled px-2 overflow-auto flex-grow-1"
-              style={{ maxHeight: "500px" }}
-            >
-              {filteredMessages.map((message) => (
-                <li
-                  ref={
-                    message.id === filteredMessages.at(-1)?.id
-                      ? lastMesageRef
-                      : null
-                  }
-                  key={message.id}
-                  className={`d-flex flex-wrap mb-2 ${isEqualString(username, message.username) ? "justify-content-end" : "justify-content-start"}`}
-                >
-                  <ChatItem
-                    {...message}
-                    isMe={isEqualString(username, message.username)}
-                    onDelete={deleteMessageHandler}
-                    onUpdate={setFormState}
+        {/** Messages list */}
+        <ul
+          className="list-unstyled px-2 overflow-auto flex-grow-1"
+          style={{ maxHeight: "500px" }}
+        >
+          {isLoading && (
+            <>
+              <li className="w-full mb-2 w-75">
+                <Placeholder as="span" animation="glow">
+                  <Placeholder.Button
+                    sm={12}
+                    className="w-full py-4"
+                    variant="secondary"
                   />
-                </li>
+                </Placeholder>
+              </li>
+              <li className="w-full w-75 mb-2">
+                <Placeholder as="span" animation="glow">
+                  <Placeholder.Button
+                    sm={12}
+                    className="w-full py-4"
+                    variant="secondary"
+                  />
+                </Placeholder>
+              </li>
+              <li className="w-full w-75 ms-auto">
+                <Placeholder as="span" animation="glow">
+                  <Placeholder.Button
+                    sm={12}
+                    className="w-full py-4"
+                    variant="secondary"
+                  />
+                </Placeholder>
+              </li>
+            </>
+          )}
+          {!isLoading && !error && filteredMessages.length !== 0 && (
+            <>
+              {filteredMessages.map((message) => (
+                <>
+                  <li
+                    ref={
+                      message.id === filteredMessages.at(-1)?.id
+                        ? lastMesageRef
+                        : null
+                    }
+                    key={message.id}
+                    className={`d-flex flex-wrap mb-2  ${isEqualString(username, message.username) ? "justify-content-end" : "justify-content-start"}`}
+                  >
+                    <ChatItem
+                      {...message}
+                      isMe={isEqualString(username, message.username)}
+                      onDelete={deleteMessageHandler}
+                      onUpdate={setFormState}
+                    />
+                  </li>
+                </>
               ))}
-            </ul>
-            {/** end Messages list */}
+            </>
+          )}
+        </ul>
+        {/** end Messages list */}
 
-            {/** Message form */}
-            <MessageForm
-              {...formState}
-              onSubmit={onSubmitMessage}
-              setFormState={setFormState}
-            />
-            {/** end Message form */}
-          </div>
-        </>
-      )}
+        {/** Message form */}
+        <MessageForm
+          {...formState}
+          onSubmit={onSubmitMessage}
+          setFormState={setFormState}
+        />
+        {/** end Message form */}
+      </div>
     </>
   );
 };
