@@ -114,7 +114,7 @@ const resources = {
       entities: {
         channel: "Канал",
         message: "Сообщение",
-        user: "Пользователь",
+        user: "Такой пользователь",
       },
       common: {
         allRightReserved: "Все права защищены",
@@ -129,7 +129,7 @@ const resources = {
       },
       notFound: {
         title: "Страница не найдена",
-        description: "Страница, которую вы ищете, не существует.",
+        description: "Страница, которую вы ищете, не существует",
         backToHome: "Вернуться на главную",
       },
       error: {
@@ -138,7 +138,7 @@ const resources = {
         forbidden: "Запрещено. У вас нет прав для доступа к этому ресурсу.",
         notFound: "Не найдено. Запрашиваемый ресурс не существует.",
         serverError: "Ошибка сервера. Пожалуйста, попробуйте позже.",
-        alreadyExist: "Уже существует.",
+        alreadyExist: "Уже существует",
         loginOrPasswordIncorrect: "Неверный логин или пароль",
       },
     },
