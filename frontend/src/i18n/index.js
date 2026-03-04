@@ -19,13 +19,18 @@ const resources = {
       fields: {
         login: "Login",
         password: "Password",
+        match: "Passwords must match",
         confirmPassword: "Password",
+        requered: "Required",
+        min: "To short",
+        max: "To long",
       },
       chatList: {
         online: "Online",
         offline: "Offline",
         you: "You",
         typeYouMessage: "Type your message and press Enter...",
+        enterChannelName: "Enter channel name",
       },
       formAction: {
         send: "Send",
@@ -59,11 +64,13 @@ const resources = {
       error: {
         network: "Network error. Please check your connection.",
         unauthorized: "Unauthorized. Please log in again.",
-        forbidden: "Forbidden. You don't have permission to access this resource.",
+        forbidden:
+          "Forbidden. You don't have permission to access this resource.",
         notFound: "Not found. The requested resource does not exist.",
         serverError: "Server error. Please try again later.",
         alreadyExist: "Already exists.",
-      }
+        loginOrPasswordIncorrect: "Login or password is incorrect",
+      },
     },
   },
   ru: {
@@ -81,12 +88,17 @@ const resources = {
         login: "Логин",
         password: "Пароль",
         confirmPassword: "Подтвердите пароль",
+        match: "Пароли должны совпадать",
+        requered: "Обязательное поле",
+        min: "Слишком короткий",
+        max: "Слишком длинный",
       },
       chatList: {
         online: "В сети",
         offline: "Не в сети",
         you: "Вы",
         typeYouMessage: "Введите сообщение и нажмите Enter...",
+        enterChannelName: "Введите название канала",
       },
       formAction: {
         send: "Отправить",
@@ -100,6 +112,7 @@ const resources = {
       entities: {
         channel: "Канал",
         message: "Сообщение",
+        user: "Пользователь",
       },
       common: {
         allRightReserved: "Все права защищены",
@@ -124,7 +137,8 @@ const resources = {
         notFound: "Не найдено. Запрашиваемый ресурс не существует.",
         serverError: "Ошибка сервера. Пожалуйста, попробуйте позже.",
         alreadyExist: "Уже существует.",
-      }
+        loginOrPasswordIncorrect: "Неверный логин или пароль",
+      },
     },
   },
 };

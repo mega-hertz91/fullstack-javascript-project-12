@@ -1,8 +1,9 @@
 import * as Yup from "yup";
+import i18n from "@/i18n";
 
 export default Yup.object().shape({
   body: Yup.string()
-    .min(1, "Message must be at least 1 character")
-    .max(1000, "Message must be at most 1000 characters")
-    .required("Message is required"),
+    .min(1, i18n.t("fields.min"))
+    .max(1000, i18n.t("fields.max"))
+    .required(i18n.t("fields.requered")),
 });
