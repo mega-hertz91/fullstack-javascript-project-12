@@ -84,7 +84,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
           {registerFormik.isSubmitting && (
             <Spinner animation="border" size="sm" className="me-2" />
           )}
-          {t("auth.signUp")}
+          {t("auth.signUpProcess")}
         </Button>
       </FormGroup>
     </Form>

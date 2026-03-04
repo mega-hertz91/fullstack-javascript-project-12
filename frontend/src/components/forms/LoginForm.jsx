@@ -21,7 +21,10 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
   });
 
   return (
-    <Form onSubmit={loginFormik.handleSubmit} className="p-3 border rounded w-100">
+    <Form
+      onSubmit={loginFormik.handleSubmit}
+      className="p-3 border rounded w-100"
+    >
       <h1 className="fs-2">{t("auth.signIn")}</h1>
       <Form.Group>
         <Form.Label htmlFor="username">{t("fields.login")}</Form.Label>
@@ -56,9 +59,9 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
         </Form.Control.Feedback>
       </Form.Group>
       <FormGroup className="pt-3">
-        <Link to="/signup">
-          {t("auth.notAccount")}? {t("auth.signUp")}
-        </Link>
+        <p>
+          {t("auth.notAccount")}? <Link to="/signup">{t("auth.signUp")}</Link>
+        </p>
       </FormGroup>
       <FormGroup className="pt-3">
         <Button

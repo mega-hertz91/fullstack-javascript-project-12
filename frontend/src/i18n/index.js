@@ -9,6 +9,7 @@ const resources = {
     translation: {
       auth: {
         signUp: "Sign up",
+        signUpProcess: "Sign up",
         signIn: "Sign in",
         logout: "Logout",
         notAccount: "Don't have an account",
@@ -76,7 +77,8 @@ const resources = {
   ru: {
     translation: {
       auth: {
-        signUp: "Зарегистрироваться",
+        signUp: "Регистрация",
+        signUpProcess: "Зарегистрироваться",
         signIn: "Войти",
         logout: "Выйти",
         notAccount: "Нет аккаунта",
