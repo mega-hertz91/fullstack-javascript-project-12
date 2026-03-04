@@ -19,7 +19,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     )
 })
 
-const ChatItem = ({ id, username, body, removable, isMe, onDelete, onUpdate }) => {
+const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
   const { t } = useTranslation();
 
   return (
