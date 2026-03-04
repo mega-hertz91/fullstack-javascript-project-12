@@ -25,6 +25,7 @@ const resources = {
         online: "Online",
         offline: "Offline",
         you: "You",
+        typeYouMessage: "Type your message and press Enter...",
       },
       formAction: {
         send: "Send",
@@ -54,6 +55,14 @@ const resources = {
         title: "Page not found",
         description: "The page you are looking for does not exist.",
         backToHome: "Back to Home",
+      },
+      error: {
+        network: "Network error. Please check your connection.",
+        unauthorized: "Unauthorized. Please log in again.",
+        forbidden: "Forbidden. You don't have permission to access this resource.",
+        notFound: "Not found. The requested resource does not exist.",
+        serverError: "Server error. Please try again later.",
+        alreadyExist: "Already exists.",
       }
     },
   },
@@ -77,6 +86,7 @@ const resources = {
         online: "В сети",
         offline: "Не в сети",
         you: "Вы",
+        typeYouMessage: "Введите сообщение и нажмите Enter...",
       },
       formAction: {
         send: "Отправить",
@@ -106,6 +116,14 @@ const resources = {
         title: "Страница не найдена",
         description: "Страница, которую вы ищете, не существует.",
         backToHome: "Вернуться на главную",
+      },
+      error: {
+        network: "Сетевая ошибка. Пожалуйста, проверьте ваше соединение.",
+        unauthorized: "Неавторизованно. Пожалуйста, войдите снова.",
+        forbidden: "Запрещено. У вас нет прав для доступа к этому ресурсу.",
+        notFound: "Не найдено. Запрашиваемый ресурс не существует.",
+        serverError: "Ошибка сервера. Пожалуйста, попробуйте позже.",
+        alreadyExist: "Уже существует.",
       }
     },
   },

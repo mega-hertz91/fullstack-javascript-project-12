@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ResponseStatus } from "@/constants";
 import { RequestError } from "@/errors/";
+import i18n from "@/i18n";
 
 const Status = {
   SUCCESS: "success",
@@ -27,8 +28,9 @@ export const login = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
+      console.error(error);
       throw new RequestError(
-        error.message + " Please check your internet connection and try again",
+       i18n.t("error.network"),
       );
     }
   },
@@ -59,8 +61,9 @@ export const signUp = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
+      console.error(error);
       throw new RequestError(
-        error.message + " Please check your internet connection and try again",
+        i18n.t("error.network"),
       );
     }
   },

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
  * View for creating new channel. Used in AppModal component
 */
 import { Modal, Form, Button, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
   const { t } = useTranslation();
@@ -25,8 +26,11 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
         }
       }
       catch (error) {
-        console.error("Error submitting channel form:", error);
-        // TODO: Show error to user
+        if (error.name === "TypeError") {
+          toast.error(t("error.network"));
+        }
+        
+        console.error(error);
         formikBag.setSubmitting(false);
       }
     },

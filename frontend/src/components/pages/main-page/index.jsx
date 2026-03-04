@@ -50,7 +50,7 @@ const Page = () => {
         </Alert>
       )}
       <Row className="h-100">
-        <Col sm={2} className="border rounded-3 overflow-hidden p-0 mr-2">
+        <Col sm={12} md={2} className="border rounded-3 overflow-hidden p-0 mr-2">
           {isLoading && (
             <>
               <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end mb-0">
@@ -82,8 +82,9 @@ const Page = () => {
           )}
         </Col>
         <Col
-          sm={10}
-          className="border rounded-3 overflow-hidden flex-column d-flex p-0 ml-2"
+          sm={0}
+          md={10}
+          className="border rounded-3 overflow-hidden flex-column d-flex p-0 ml-2 hidden"
         >
           <ChatList
             online={online}

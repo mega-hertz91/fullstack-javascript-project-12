@@ -31,10 +31,10 @@ const ChatItem = ({ id, username, body, removable, isMe, onDelete, onUpdate }) =
               <Dropdown.Toggle id="dropdown-basic" as={CustomToggle} />
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => onUpdate({ id, body })}>
+                <Dropdown.Item onClick={onUpdate}>
                   {t("formAction.edit")}
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => onDelete({ id })}>
+                <Dropdown.Item onClick={onDelete}>
                   {t("formAction.delete")}
                 </Dropdown.Item>
               </Dropdown.Menu>

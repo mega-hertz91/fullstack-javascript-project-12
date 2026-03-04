@@ -48,7 +48,7 @@ export const chanelsApi = createApi({
                 draft[index] = updatedChannel;
               }
             });
-          }
+          };
 
           socket.on(Event.NEW_CHANNEL, handleNewChannel);
           socket.on(Event.REMOVE_CHANNEL, handleDeleteChannel);
@@ -71,9 +71,6 @@ export const chanelsApi = createApi({
         url: ENTITY_PATH,
         method: Method.POST,
         body: newChanel,
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
     }),
     updateChannel: build.mutation({
@@ -81,9 +78,6 @@ export const chanelsApi = createApi({
         url: `${ENTITY_PATH}/${id}`,
         method: Method.PATCH,
         body: updatedData,
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
     }),
     deleteChannel: build.mutation({

@@ -3,9 +3,12 @@ import {
   useUpdateChannelMutation,
   useDeleteChannelMutation,
 } from "@/store/services/channels.service";
-import { isExistIetmInArray } from "@/utils/common.utils";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { isExistIetmInArray } from "@/utils/common.utils";
+import { socket, Event } from "@/socket";
 
 import ChannelItem from "./ChannelItem";
 import { AppModal, ChannelModal } from "@/components/modals";
@@ -14,34 +17,43 @@ import { ButtonGroup, Badge, Button } from "react-bootstrap";
 const Channels = (props) => {
   const { t } = useTranslation();
   const { chanels, currentChanel, setChannel, refetch } = props;
+  const username = useSelector((state) => state.auth.username);
 
   // CRUD operations for channels.
   const [createChanel] = useCreateChanelMutation();
   const [updateChanel] = useUpdateChannelMutation();
   const [deleteChanel] = useDeleteChannelMutation();
 
+  const afterSubmitHook =(formikBag, toastMessage, data = null) => {
+    refetch();
+    formikBag.resetForm();
+
+    data ? setChannel(data) : setChannel(chanels.at(0));
+    toast.success(toastMessage);
+  }
   /**
    * Create channel handler
    * @param {Object} values // Values from Formik values
    * @param {Object} // FormikBag values
    */
-  const createChannelHandler = async (values, { resetForm, setFieldError }) => {
-    if (
-      isExistIetmInArray(
-        chanels.map(({ name }) => name),
-        values.name,
-      )
-    ) {
-      setFieldError("name", "Channel with this name already exists");
-      throw new Error("Channel with this name already exists");
+  const createChannelHandler = async (values, formikBag) => {
+    if (isExistIetmInArray(chanels.map(({ name }) => name), values.name)) {
+      const errMsg = [
+        t("entities.channel"),
+        t("error.alreadyExist").toLocaleLowerCase(),
+      ].join(" ");
+
+      formikBag.setFieldError("name", errMsg);
+      throw new Error(errMsg);
     }
 
-    const { data } = await createChanel(values);
+    const { error, data } = await createChanel(values);
 
-    refetch();
-    resetForm();
-    setChannel(data);
-    toast.success(t('entities.channel') + ' ' + t('toast.createSuccess'));
+    if (error) {
+      throw new TypeError(t('error.connectNetwork'));
+    }
+
+    afterSubmitHook(formikBag, t("entities.channel") + " " + t("toast.createSuccess"), data);
   };
 
   /**
@@ -49,12 +61,14 @@ const Channels = (props) => {
    * @param {Object} values // Values from Formik values
    * @param {Object} // FormikBag values
    */
-  const deleteChannelHandler = async (values, { resetForm }) => {
-    await deleteChanel(values);
-    refetch();
-    resetForm();
-    setChannel(chanels.at(-2));
-    toast.success(t('entities.channel') + ' ' + t('toast.deleteSuccess'));
+  const deleteChannelHandler = async (values, formikBag) => {
+    const {error} = await deleteChanel(values);
+
+    if (error) {
+      throw new TypeError(t('error.connectNetwork'));
+    }
+
+    afterSubmitHook(formikBag, t('entities.channel') + ' ' + t('toast.deleteSuccess'));
   };
 
   /**
@@ -62,7 +76,7 @@ const Channels = (props) => {
    * @param {Object} values // Values from Formik values
    * @param {Object} // FormikBag values
    */
-  const updateChannelHandler = async (values, { resetForm, setFieldError }) => {
+  const updateChannelHandler = async (values, formikBag) => {
     if (
       isExistIetmInArray(
         chanels
@@ -71,17 +85,38 @@ const Channels = (props) => {
         values.name,
       )
     ) {
-      setFieldError("name", "Channel with this name already exists");
-      throw new Error("Channel with this name already exists");
+      const errMsg = [
+        t("entities.channel"),
+        t("error.alreadyExist").toLocaleLowerCase(),
+      ].join(" ");
+      formikBag.setFieldError("name", errMsg);
+      throw new Error(errMsg);
     }
 
-    await updateChanel(values);
+    const { error, data } = await updateChanel(values);
 
-    refetch();
-    resetForm();
-    setChannel(values);
-    toast.success(t('toast.updateSuccess'));
+    if (error) {
+      throw new TypeError(t('error.connectNetwork'));
+    }
+
+    afterSubmitHook(formikBag, t('entities.channel') + ' ' + t('toast.updateSuccess'), data);
   };
+
+  useEffect(() => {
+    socket.connect();
+
+    const handleRemoveChannel = ({ id }) => {
+      setChannel(chanels.at(0));
+      toast.info([username, t("entities.channel"), id, t("toast.deleteSuccess")].join(" "));
+    };
+
+    socket.on(Event.REMOVE_CHANNEL, handleRemoveChannel);
+
+    return () => {
+      socket.off(Event.REMOVE_CHANNEL, handleRemoveChannel);
+      socket.disconnect();
+    };
+  }, [chanels]);
 
   return (
     <>
@@ -116,8 +151,8 @@ const Channels = (props) => {
               channel={{ name, id, removable }}
               isCurrentChannel={currentChanel?.id === id}
               setChannel={setChannel}
-              onUpdateChannel={updateChannelHandler}
-              onDeleteChannel={deleteChannelHandler}
+              onUpdateChannel={(values, formikBag) => updateChannelHandler({ id, ...values},formikBag)}
+              onDeleteChannel={(values, formikBag) => deleteChannelHandler({ id, ...values},formikBag)}
             />
           ))}
         </ButtonGroup>

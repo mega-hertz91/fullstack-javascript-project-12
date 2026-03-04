@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <ThemeProvider
-        breakpoints={["xxl", "xl", "lg", "md", "sm"]}
+        breakpoints={["xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
         minBreakpoint="sm"
       >
         <I18nextProvider i18n={i18n} defaultNS={"translation"}>

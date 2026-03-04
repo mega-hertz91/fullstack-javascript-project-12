@@ -50,7 +50,7 @@ const BaseLayout = ({ children }) => {
         <Col
           sm={12}
           className="flex-shrink-0 py-4"
-          style={{ minHeight: "86%" }}
+          style={{ minHeight: "86vh" }}
         >
           <main className="h-100 px-2">{children}</main>
         </Col>
