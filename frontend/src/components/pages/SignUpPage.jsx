@@ -21,7 +21,9 @@ const Page = () => {
       resetForm();
     } catch ({name, message, statusCode = 0}) {
       if (name === "RequestError" && statusCode === ResponseStatus.CONFLICT) {
-        setFieldError('username', message);
+        setFieldError('username', " ");
+        setFieldError("password", " ");
+        setFieldError("confirmPassword", message);
       }
 
       if (name === "RequestError" && statusCode === 0) {
