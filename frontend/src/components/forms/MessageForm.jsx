@@ -2,8 +2,11 @@ import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import { messageScheme } from "@/validation-schemes/";
 import { useTranslation } from "react-i18next";
+import * as leoProfanity from "leo-profanity";
 
 import { Form, Button, Spinner, CloseButton, Fade } from "react-bootstrap";
+
+leoProfanity.loadDictionary("ru", 'en')
 
 const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
   const { t } = useTranslation();
@@ -15,7 +18,14 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
     initialValues,
     validationSchema: messageScheme,
     onSubmit: async (values, { resetForm }) => {
-      await onSubmit(values);
+      const isNotCorrect = leoProfanity.check(values.body);
+
+      const data = {
+        ...values,
+        body: !isNotCorrect ? values.body : leoProfanity.clean(values.body),
+      };
+
+      await onSubmit(data);
       resetForm();
     },
   });
