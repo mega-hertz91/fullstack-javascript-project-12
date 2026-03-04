@@ -1,18 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/store/reducres/auth.reducer";
 import { Link } from "react-router-dom";
-import { addAlert } from "@/store/reducres/alert.reducer";
-import { createDangerAlert } from "@/utils/alert.util";
 import { useTranslation } from "react-i18next";
 
 /**  
  * Import Bootstrap components
  * You can customize the layout and styling as needed
  */
-import { Container, Button } from "react-bootstrap";
-import AlertList from "./components/AlertList";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import { AppModal, LogoutModal } from "@/components/modals/";
+import { toast } from "react-toastify";
 
 const BaseLayout = ({ children }) => {
   const { username } = useSelector((state) => state.auth);
@@ -23,44 +21,49 @@ const BaseLayout = ({ children }) => {
     try {
       await dispatch(logout()).unwrap();
     } catch (error) {
-      dispatch(addAlert(createDangerAlert(t("auth.logoutError") + ": " + error.message)));
+      toast.error(t(error.message));
     }
   };
 
   return (
-    <div className="base-layout h-100 d-flex flex-column">
-      <Container>
-        <AlertList />
-        <header className="py-2 d-flex align-items-center justify-content-end border-bottom">
-          <h1 className="me-auto">
-            <Link to="/">Hexlet Chat</Link>
-          </h1>
-          {username && (
-            <AppModal
-              trigger={
-                <Button variant="primary" size="sm" className="me-auto"> 
-                  {t("auth.logout")}
-                </Button>
-              }
-            >
-              <LogoutModal onLogout={handleLogout} />
-            </AppModal>
-          )}
-          <LanguageSwitcher className="ms-2" />
-        </header>
-      </Container>
-      <Container className="flex-grow-1">
-        <main className="base-layout__content h-100">{children}</main>
-      </Container>
-      <Container>
-        <footer className="base-layout__footer">
-          <p>
-            &copy; {new Date().getFullYear()} Hexlet Chat.{" "}
-            {t("common.allRightReserved")}.
-          </p>
-        </footer>
-      </Container>
-    </div>
+    <Container fluid className="h-100">
+      <Row className="justify-content-between h-100">
+        <Col sm={12} className="flex-grow-1">
+          <header className="py-2 d-flex align-items-center justify-content-end border-bottom">
+            <h1 className="me-auto">
+              <Link to="/">Hexlet Chat</Link>
+            </h1>
+            {username && (
+              <AppModal
+                trigger={
+                  <Button variant="primary" size="sm" className="me-auto">
+                    {t("auth.logout")}
+                  </Button>
+                }
+              >
+                <LogoutModal onLogout={handleLogout} />
+              </AppModal>
+            )}
+            <LanguageSwitcher className="ms-2" />
+          </header>
+        </Col>
+        <Col
+          sm={12}
+          className="flex-shrink-0 py-4"
+          style={{ minHeight: "86vh" }}
+        >
+          <main className="h-100 px-2">{children}</main>
+        </Col>
+        <Col sm={12} className="flex-grow-1">
+          <footer className="base-layout__footer">
+            <p>
+              &copy; {new Date().getFullYear()} Hexlet Chat.
+              {t("common.allRightReserved")}.
+            </p>
+          </footer>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

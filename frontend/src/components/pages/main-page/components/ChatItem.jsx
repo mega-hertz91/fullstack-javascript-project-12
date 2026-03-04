@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     return (
         <button 
-        className="px-1 py-0 rounded-none lh-1 m-0 border-0 bg-transparent" 
+        className="px-1 py-0 rounded-none lh-1 m-0 border-0 bg-transparent text-dark" 
         ref={ref} 
         onClick={(e) => {
             e.preventDefault();
@@ -24,17 +24,17 @@ const ChatItem = ({ id, username, body, removable, isMe, onDelete, onUpdate }) =
 
   return (
     <>
-      <Alert variant={isMe ? "success" : "light"} className="p-0 w-75">
+      <Alert variant={isMe ? "success" : "light"} className="p-0 w-75 m-0">
         <div className="d-flex align-items-end mb-0 w-100 px-2 pt-1">
           {isMe && removable && (
             <Dropdown className="me-auto">
               <Dropdown.Toggle id="dropdown-basic" as={CustomToggle} />
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => onUpdate({ id, body })}>
+                <Dropdown.Item onClick={onUpdate}>
                   {t("formAction.edit")}
                 </Dropdown.Item>
-                <Dropdown.Item onClick={() => onDelete({ id })}>
+                <Dropdown.Item onClick={onDelete}>
                   {t("formAction.delete")}
                 </Dropdown.Item>
               </Dropdown.Menu>

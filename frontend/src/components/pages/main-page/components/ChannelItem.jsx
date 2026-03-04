@@ -39,9 +39,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
               <AppModal trigger={<span>{t('formAction.edit')}</span>}>
                 <ChannelModal
                   actionText={t('formAction.edit')}
-                  onSubmit={(values, formikHelpers) =>
-                    onUpdateChannel({ ...values, id }, formikHelpers)
-                  }
+                  onSubmit={onUpdateChannel}
                   name={name}
                 />
               </AppModal>
@@ -51,9 +49,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
                 <ChannelModal
                   disabled
                   actionText={t('formAction.delete')}
-                  onSubmit={(values, formikHelpers) =>
-                    onDeleteChannel({ ...values, id }, formikHelpers)
-                  }
+                  onSubmit={onDeleteChannel}
                   name={name}
                 />
               </AppModal>

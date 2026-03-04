@@ -18,7 +18,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
   });
 
   return (
-    <Form onSubmit={registerFormik.handleSubmit} className="p-3 border rounded">
+    <Form onSubmit={registerFormik.handleSubmit} className="p-4 border rounded w-100">
       <h1 className="fs-2">{t("auth.signUp")}</h1>
       <Form.Group>
         <Form.Label htmlFor="username">{t('fields.login')}</Form.Label>

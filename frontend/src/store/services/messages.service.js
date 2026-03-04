@@ -29,11 +29,19 @@ export const messagesApi = createApi({
             });
           };
 
+          const handleChannelDeleted = ({ id: channelId }) => {
+            updateCachedData((draft) => {
+              return draft.filter((message) => message.channelId !== channelId);
+            });
+          };
+
           socket.on(Event.NEW_MESSAGE, handleNewMessage);
+          socket.on(Event.REMOVE_CHANNEL, handleChannelDeleted);
 
           await cacheEntryRemoved;
 
           socket.off(Event.NEW_MESSAGE, handleNewMessage);
+          socket.off(Event.REMOVE_CHANNEL, handleChannelDeleted);
           
           socket.disconnect();
         } catch (error) {
