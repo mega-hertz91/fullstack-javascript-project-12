@@ -57,7 +57,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
               id="name"
               name="name"
               type="text"
-              placeholder="Enter channel name"
+              placeholder={t('chatList.enterChannelName')}
               value={createForm.values.name}
               onChange={createForm.handleChange}
               isInvalid={!!createForm.errors.name}

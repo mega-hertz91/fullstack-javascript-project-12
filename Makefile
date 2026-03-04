@@ -14,7 +14,7 @@ deploy:
 	git push heroku main
 
 start:
-	make start-backend
+	make start-backend & make -C frontend start
 
 develop:
 	make start-backend & make -C frontend develop

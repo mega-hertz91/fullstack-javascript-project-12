@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 
 import BaseLayout from "@/components/layout";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 /**
  * This is the login page component. It uses the BaseLayout to provide a consistent layout for the application and includes the LoginForm component for user authentication.

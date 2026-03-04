@@ -1,8 +1,9 @@
 import * as Yup from "yup";
+import i18n from "@/i18n";
 
 export default Yup.object().shape({
   name: Yup.string()
-    .required("Channel name is required")
-    .min(3, "Channel name must be at least 3 characters")
-    .max(20, "Channel name must be at most 20 characters"),
+    .required(i18n.t("fields.requered"))
+    .min(3, i18n.t("fields.min"))
+    .max(20, i18n.t("fields.max")),
 });

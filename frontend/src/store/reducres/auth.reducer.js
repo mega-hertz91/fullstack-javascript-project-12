@@ -122,7 +122,7 @@ const authSlice = createSlice({
       if (statusCode > ResponseStatus.OK) {
         state.state = Status.ERROR;
 
-        throw new RequestError("Login or password is incorrect", statusCode);
+        throw new RequestError(i18n.t('error.loginOrPasswordIncorrect'), statusCode);
       }
 
       loginScenarios(state, { token, username });
@@ -150,7 +150,7 @@ const authSlice = createSlice({
       if (statusCode > ResponseStatus.OK) {
         state.state = Status.ERROR;
 
-        throw new RequestError("User alredy exist", statusCode);
+        throw new RequestError([i18n.t('entities.user'), i18n.t('error.alreadyExist').toLowerCase()].join(' '), statusCode);
       }
 
       loginScenarios(state, { token, username });
