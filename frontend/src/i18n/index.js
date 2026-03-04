@@ -87,7 +87,7 @@ const resources = {
         logoutConfirmTitile: "Подтверждение выхода",
       },
       fields: {
-        login: "Логин",
+        login: "Имя пользователя",
         password: "Пароль",
         confirmPassword: "Подтвердите пароль",
         match: "Пароли должны совпадать",
