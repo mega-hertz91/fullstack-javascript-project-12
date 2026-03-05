@@ -24,7 +24,8 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
         onClick={() => setChannel({ name, id })}
         size={ClassName.SIZE}
       >
-        #{name}
+        <span># </span>
+        {name}
       </Button>
       {removable && (
         <>
@@ -36,19 +37,19 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
           />
           <Dropdown.Menu>
             <Dropdown.Item>
-              <AppModal trigger={<span>{t('formAction.edit')}</span>}>
+              <AppModal trigger={<span>{t("formAction.edit")}</span>}>
                 <ChannelModal
-                  actionText={t('formAction.edit')}
+                  actionText={t("formAction.edit")}
                   onSubmit={onUpdateChannel}
                   name={name}
                 />
               </AppModal>
             </Dropdown.Item>
             <Dropdown.Item>
-              <AppModal trigger={<span>{t('formAction.delete')}</span>}>
+              <AppModal trigger={<span>{t("formAction.delete")}</span>}>
                 <ChannelModal
                   disabled
-                  actionText={t('formAction.delete')}
+                  actionText={t("formAction.delete")}
                   onSubmit={onDeleteChannel}
                   name={name}
                 />
