@@ -50,7 +50,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
             <Dropdown.Item>
               <AppModal trigger={<span>{t("formAction.delete")}</span>}>
                 <ChannelModal
-                  disabled
+                  deleted
                   actionText={t("formAction.delete")}
                   onSubmit={onDeleteChannel}
                   name={name}

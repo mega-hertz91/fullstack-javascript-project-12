@@ -12,7 +12,7 @@ import { initProfanity, leoProfanity } from "@/utils/profanity.util";
 
 initProfanity(["ru", "en"]);
 
-const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
+const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", deleted = false }) => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
   const createForm = useFormik({
@@ -71,7 +71,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
             </Form.Label>
             <Form.Control
               ref={inputRef}
-              disabled={disabled}
+              disabled={deleted}
               id="name"
               name="name"
               type="text"
@@ -95,7 +95,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
             {t("formAction.cancel")}
           </Button>
           <Button
-            variant="primary"
+            variant={deleted ? "danger" : "primary"}
             type="submit"
             disabled={createForm.isSubmitting}
           >
