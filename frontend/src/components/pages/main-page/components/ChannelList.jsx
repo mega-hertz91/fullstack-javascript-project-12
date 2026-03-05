@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 import { isExistIetmInArray } from "@/utils/common.utils";
 import { socket, Event } from "@/socket";
 
+/**
+ * Styles component
+ */
 import ChannelItem from "./ChannelItem";
 import { AppModal, ChannelModal } from "@/components/modals";
 import { ButtonGroup, Badge, Button } from "react-bootstrap";
