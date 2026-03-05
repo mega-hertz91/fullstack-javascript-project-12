@@ -122,7 +122,7 @@ const resources = {
         cancel: "Отменить",
         close: "Закрыть",
         create: "Создать",
-        edit: "Редактировать",
+        edit: "Переименовать",
         delete: "Удалить",
       },
       entities: {
