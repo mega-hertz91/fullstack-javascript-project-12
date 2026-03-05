@@ -152,7 +152,7 @@ const ChatList = ({ channelId, username, online }) => {
                     />
                   </div>**/}
                   <div className="text-break mb-2">
-                    <b>{username}</b>: {message.body}
+                    <b>{message.username}</b>: {message.body}
                   </div>
                 </>
               ))}
