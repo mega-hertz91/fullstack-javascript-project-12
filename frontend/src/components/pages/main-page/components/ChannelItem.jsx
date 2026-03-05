@@ -34,7 +34,9 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
             variant={isCurrentChannel ? ClassName.CURRENT : ClassName.DEFAULT}
             id="dropdown-split-basic"
             size={ClassName.SIZE}
-          />
+          >
+           <span className="visually-hidden">{t("chatList.channelOptions")}</span>
+          </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item>
               <AppModal trigger={<span>{t("formAction.edit")}</span>}>

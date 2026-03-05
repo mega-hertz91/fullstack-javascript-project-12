@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { changeLanguage } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 // the translations
@@ -33,7 +33,8 @@ const resources = {
         you: "You",
         typeYouMessage: "Type your message and press Enter...",
         enterChannelName: "Enter channel name",
-        newMessage: 'New message'
+        newMessage: 'New message',
+        channelOptions: 'Channel management',
       },
       formAction: {
         send: "Send",
@@ -112,7 +113,8 @@ const resources = {
         you: "Вы",
         typeYouMessage: "Введите сообщение и нажмите Enter...",
         enterChannelName: "Имя канала",
-        newMessage: 'Новое сообщение'
+        newMessage: 'Новое сообщение',
+        channelOptions: 'Управление каналом',
       },
       formAction: {
         send: "Отправить",
