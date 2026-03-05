@@ -41,7 +41,8 @@ const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
             </Dropdown>
           )}
           <Badge bg={isMe ? "success" : "dark"}>
-            {isMe ? t("chatList.you") : username}
+            {/**{isMe ? t("chatList.you") : username} **/}
+            {username}
           </Badge>
         </div>
         <span className="fw-light d-block p-2">{body}</span>
