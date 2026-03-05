@@ -58,13 +58,12 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
   return (
     <div className="p-3 bg-light border-top">
       <Form
-        className="border-top position-relative"
+        className="border-top position-relative d-flex alight-items-stretch"
         onSubmit={messageForm.handleSubmit}
       >
         <Form.Group className="w-100">
           <Form.Control
             ref={inputRef}
-            as="textarea"
             placeholder={t('chatList.typeYouMessage')}
             name="body"
             value={messageForm.values.body}
@@ -80,19 +79,12 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
             {messageForm.errors.body}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group className="position-absolute bottom-0 end-0 d-flex flex-column align-items-center">
-          <Fade in={!!messageForm.values.body || !!messageForm.values.id}>
-            <CloseButton
-              onClick={messageForm.resetForm}
-              className={`${messageForm.values.body || messageForm.values.id ? "visible" : "invisible"}`}
-            />
-          </Fade>
+        <Form.Group>  
           <Button
             variant="primary"
             type="submit"
             className="ms-auto"
             disabled={messageForm.isSubmitting || !messageForm.isValid}
-            size="sm"
           >
             {messageForm.isSubmitting && (
               <Spinner
