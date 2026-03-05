@@ -10,7 +10,7 @@ import { Modal, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import * as leoProfanity from "leo-profanity";
 
-leoProfanity.loadDictionary("ru", "en");
+leoProfanity.loadDictionary()
 
 const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
   const { t } = useTranslation();
