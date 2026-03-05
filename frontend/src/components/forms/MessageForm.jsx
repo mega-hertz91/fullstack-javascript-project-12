@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import { messageScheme } from "@/validation-schemes/";
 import { useTranslation } from "react-i18next";
-import * as leoProfanity from "leo-profanity";
+import { initProfanity, leoProfanity } from "@/utils/profanity.util";
 
 import { Form, Button, Spinner, CloseButton, Fade } from "react-bootstrap";
 
-leoProfanity.loadDictionary("ru", 'en')
+initProfanity(["ru", "en"]);
 
 const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
   const { t } = useTranslation();

@@ -8,9 +8,9 @@ import { useTranslation } from "react-i18next";
 */
 import { Modal, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import * as leoProfanity from "leo-profanity";
+import { initProfanity, leoProfanity } from "@/utils/profanity.util";
 
-leoProfanity.loadDictionary()
+initProfanity(["ru", "en"]);
 
 const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
   const { t } = useTranslation();
