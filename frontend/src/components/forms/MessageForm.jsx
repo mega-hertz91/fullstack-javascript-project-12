@@ -71,6 +71,7 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
             onChange={messageForm.handleChange}
             isInvalid={!!messageForm.errors.body && messageForm.touched.body}
             onKeyDown={onKeyEvent}
+            aria-label=""
           />
           <Form.Control.Feedback
             type="invalid"

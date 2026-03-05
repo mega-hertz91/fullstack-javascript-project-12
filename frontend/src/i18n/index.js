@@ -33,6 +33,7 @@ const resources = {
         you: "You",
         typeYouMessage: "Type your message and press Enter...",
         enterChannelName: "Enter channel name",
+        newMesage: 'New message'
       },
       formAction: {
         send: "Send",
@@ -104,6 +105,7 @@ const resources = {
         you: "Вы",
         typeYouMessage: "Введите сообщение и нажмите Enter...",
         enterChannelName: "Введите название канала",
+        newMesage: 'Новое сообщение'
       },
       formAction: {
         send: "Отправить",
