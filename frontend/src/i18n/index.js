@@ -142,7 +142,7 @@ const resources = {
         deleteFailed: "не удалось удалить",
         channelCreated: "Канал создан",
         channelUpdated: "Канал переименован",
-        channelDeleted: "Канал удален",
+        channelDeleted: "Канал удалён",
         messageCreated: "Сообщение отправлено",
         messageUpdated: "Сообщение обновлено",
         messageDeleted: "Сообщение удалено",
