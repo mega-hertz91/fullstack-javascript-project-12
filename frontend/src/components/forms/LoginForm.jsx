@@ -66,7 +66,7 @@ const LoginForm = ({ onSubmit }) => {
       </FormGroup>
       <FormGroup className="pt-3">
         <Button
-          disabled={!loginFormik.isValid || loginFormik.isSubmitting}
+          disabled={loginFormik.isSubmitting}
           type="submit"
           variant="primary"
         >
