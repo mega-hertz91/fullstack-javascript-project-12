@@ -8,6 +8,9 @@ import { useTranslation } from "react-i18next";
 */
 import { Modal, Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import * as leoProfanity from "leo-profanity";
+
+leoProfanity.loadDictionary("ru", "en");
 
 const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", disabled = false }) => {
   const { t } = useTranslation();
@@ -19,7 +22,14 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
     validationSchema: channelScheme,
     onSubmit: async (values, formikBag) => {
       try {
-        await onSubmit(values, formikBag);
+        const isNotCorrect = leoProfanity.check(values.name);
+
+        const data = {
+          ...values,
+          name: !isNotCorrect ? values.name : leoProfanity.clean(values.name),
+        };
+
+        await onSubmit(data, formikBag);
         // Autoclose modal on success
         if (onClose) {
           onClose();
