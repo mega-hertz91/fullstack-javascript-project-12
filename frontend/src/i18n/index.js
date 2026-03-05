@@ -141,7 +141,7 @@ const resources = {
         updateFailed: "не удалось обновить",
         deleteFailed: "не удалось удалить",
         channelCreated: "Канал создан",
-        channelUpdated: "Канал обновлен",
+        channelUpdated: "Канал переименован",
         channelDeleted: "Канал удален",
         messageCreated: "Сообщение отправлено",
         messageUpdated: "Сообщение обновлено",
