@@ -19,16 +19,16 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     )
 })
 
-const ChatItem = ({ username, body }) => {
+const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
   const { t } = useTranslation();
 
   return (
     <>
-      {/**<Alert variant={isMe ? "success" : "light"} className="p-0 w-75 m-0">
+      <Alert variant={isMe ? "success" : "light"} className="p-0 w-75 m-0">
         <div className="d-flex align-items-end mb-0 w-100 px-2 pt-1">
           {isMe && removable && (
             <Dropdown className="me-auto">
-              <Dropdown.Toggle id="dropdown-basic" as={CustomToggle} />
+              <Dropdown.Toggle id="dropdown-basic" as={CustomToggle}/>
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={onUpdate}>
@@ -41,14 +41,11 @@ const ChatItem = ({ username, body }) => {
             </Dropdown>
           )}
           <Badge bg={isMe ? "success" : "dark"}>
-          {username}
+            {isMe ? t("chatList.you") : username}
           </Badge>
         </div>
         <span className="fw-light d-block p-2">{body}</span>
-      </Alert>**/}
-      <div>
-        <b>{username}</b>: {body}
-      </div>
+      </Alert>
     </>
   );
 };
