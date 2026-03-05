@@ -111,7 +111,7 @@ const resources = {
         offline: "Не в сети",
         you: "Вы",
         typeYouMessage: "Введите сообщение и нажмите Enter...",
-        enterChannelName: "Название канала",
+        enterChannelName: "Имя канала",
         newMessage: 'Новое сообщение'
       },
       formAction: {
