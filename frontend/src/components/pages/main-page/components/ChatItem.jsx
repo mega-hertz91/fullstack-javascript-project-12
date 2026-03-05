@@ -28,7 +28,7 @@ const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
         <div className="d-flex align-items-end mb-0 w-100 px-2 pt-1">
           {isMe && removable && (
             <Dropdown className="me-auto">
-              <Dropdown.Toggle id="dropdown-basic" as={CustomToggle}/>
+              <Dropdown.Toggle id="dropdown-basic" as={CustomToggle} />
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={onUpdate}>
@@ -41,7 +41,8 @@ const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
             </Dropdown>
           )}
           <Badge bg={isMe ? "success" : "dark"}>
-            {isMe ? t("chatList.you") : username}
+            {/**{isMe ? t("chatList.you") : username} */}
+            {username}
           </Badge>
         </div>
         <span className="fw-light d-block p-2">{body}</span>
