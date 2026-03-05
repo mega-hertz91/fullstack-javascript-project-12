@@ -77,7 +77,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
           >
             {t('formAction.cancel')}
           </Button>
-          <Button variant="primary" type="submit" disabled={!createForm.isValid || createForm.isSubmitting}>
+          <Button variant="primary" type="submit" disabled={createForm.isSubmitting}>
             {createForm.isSubmitting && (
               <Spinner animation="border" size="sm" className="me-2" />
             )}
