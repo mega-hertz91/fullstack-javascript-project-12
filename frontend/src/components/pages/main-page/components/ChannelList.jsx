@@ -20,7 +20,7 @@ import { ButtonGroup, Badge, Button } from "react-bootstrap";
 const Channels = (props) => {
   const { t } = useTranslation();
   const { chanels, currentChanel, setChannel, refetch } = props;
-  const username = useSelector((state) => state.auth.username);
+  // const username = useSelector((state) => state.auth.username);
 
   // CRUD operations for channels.
   const [createChanel] = useCreateChanelMutation();
@@ -96,21 +96,21 @@ const Channels = (props) => {
     afterSubmitHook(formikBag, t('toast.channelUpdated'), data);
   };
 
-  useEffect(() => {
-    socket.connect();
+  // useEffect(() => {
+  //   socket.connect();
 
-    const handleRemoveChannel = ({ id }) => {
-      setChannel(chanels.at(0));
-      toast.info([username, t("entities.channel"), id, t("toast.channelDeleted")].join(" "));
-    };
+  //   const handleRemoveChannel = ({ id }) => {
+  //     setChannel(chanels.at(0));
+  //     toast.info([username, t("entities.channel"), id, t("toast.channelDeleted")].join(" "));
+  //   };
 
-    socket.on(Event.REMOVE_CHANNEL, handleRemoveChannel);
+  //   socket.on(Event.REMOVE_CHANNEL, handleRemoveChannel);
 
-    return () => {
-      socket.off(Event.REMOVE_CHANNEL, handleRemoveChannel);
-      socket.disconnect();
-    };
-  }, [chanels]);
+  //   return () => {
+  //     socket.off(Event.REMOVE_CHANNEL, handleRemoveChannel);
+  //     socket.disconnect();
+  //   };
+  // }, [chanels]);
 
   return (
     <>
