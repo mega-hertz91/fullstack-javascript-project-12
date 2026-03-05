@@ -1,6 +1,5 @@
 import { LoginForm } from '@/components/forms';
 import { login } from "@/store/reducres/auth.reducer";
-import { loginScheme } from "@/validation-schemes";
 import { useDispatch } from 'react-redux';
 import { ResponseStatus } from "@/constants";
 import { toast } from "react-toastify";
@@ -35,7 +34,7 @@ const Page = () => {
   return (
     <BaseLayout>
       <Col xl={5} lg={6} md={8} sm={12} className="mx-auto d-flex align-items-center h-100">
-        <LoginForm onSubmit={handleLogin} validationScheme={loginScheme} />
+        <LoginForm onSubmit={handleLogin} />
       </Col>
     </BaseLayout>
   );
