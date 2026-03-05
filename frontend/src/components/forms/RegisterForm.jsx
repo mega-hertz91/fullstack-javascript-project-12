@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { useEffect, useRef, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import { Button, FormGroup, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,6 +7,17 @@ import { useTranslation } from "react-i18next";
 
 const RegisterForm = ({ onSubmit, validationScheme }) => {
   const { t } = useTranslation();
+  const firstInputRef = useRef(null);
+
+  const onFocusFirstInput = useCallback(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
+  
+  useEffect(() => {
+    onFocusFirstInput();
+  }, [onFocusFirstInput]);
 
   const registerFormik = useFormik({
     initialValues: {
@@ -18,16 +30,21 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
   });
 
   return (
-    <Form onSubmit={registerFormik.handleSubmit} className="p-4 border rounded w-100">
+    <Form
+      onSubmit={registerFormik.handleSubmit}
+      className="p-4 border rounded w-100"
+    >
       <h1 className="fs-2">{t("auth.signUp")}</h1>
       <Form.Group>
-        <Form.Label htmlFor="username">{t('fields.login')}</Form.Label>
+        <Form.Label htmlFor="username">{t("fields.login")}</Form.Label>
         <Form.Control
+          ref={firstInputRef}
           id="username"
           type="text"
           name="username"
           value={registerFormik.values.username}
           onChange={registerFormik.handleChange}
+          onBlur={registerFormik.handleBlur}
           isInvalid={
             !!registerFormik.errors.username && registerFormik.touched.username
           }
@@ -44,6 +61,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
           name="password"
           value={registerFormik.values.password}
           onChange={registerFormik.handleChange}
+          onBlur={registerFormik.handleBlur}
           isInvalid={
             !!registerFormik.errors.password && registerFormik.touched.password
           }
@@ -62,6 +80,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
           name="confirmPassword"
           value={registerFormik.values.confirmPassword}
           onChange={registerFormik.handleChange}
+          onBlur={registerFormik.handleBlur}
           isInvalid={
             !!registerFormik.errors.confirmPassword &&
             registerFormik.touched.confirmPassword
@@ -77,10 +96,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
         </Link>
       </FormGroup>
       <FormGroup className="pt-3">
-        <Button
-          disabled={!registerFormik.isValid || registerFormik.isSubmitting}
-          type="submit"
-        >
+        <Button disabled={registerFormik.isSubmitting} type="submit">
           {registerFormik.isSubmitting && (
             <Spinner animation="border" size="sm" className="me-2" />
           )}
