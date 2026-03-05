@@ -22,8 +22,8 @@ const Page = () => {
       resetForm();
     } catch ({ name, message, statusCode = 0 }) {
       if (name === "RequestError" && statusCode === ResponseStatus.UNAUTHORIZED) {
+        setFieldError("username", " ");
         setFieldError("password", message);
-        setFieldError("username", message);
       }
 
       if (name === "RequestError" && statusCode === 0) {

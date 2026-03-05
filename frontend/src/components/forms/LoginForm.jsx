@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Button, FormGroup, Spinner } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-const LoginForm = ({ onSubmit, validationScheme }) => {
+const LoginForm = ({ onSubmit }) => {
   const { t } = useTranslation();
 
   const loginFormik = useFormik({
@@ -16,7 +16,6 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
       username: "",
       password: "",
     },
-    validationSchema: validationScheme,
     onSubmit,
   });
 
@@ -32,6 +31,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
           id="username"
           type="text"
           name="username"
+          required
           value={loginFormik.values.username}
           onChange={loginFormik.handleChange}
           isInvalid={
@@ -48,6 +48,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
           id="password"
           type="password"
           name="password"
+          required
           value={loginFormik.values.password}
           onChange={loginFormik.handleChange}
           isInvalid={
