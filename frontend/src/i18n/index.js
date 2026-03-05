@@ -19,6 +19,7 @@ const resources = {
       },
       fields: {
         login: "Login",
+        nickName: "Nickname",
         password: "Password",
         match: "Passwords must match",
         confirmPassword: "Password",
@@ -88,6 +89,7 @@ const resources = {
       },
       fields: {
         login: "Имя пользователя",
+        nickName: "Ваш ник",
         password: "Пароль",
         confirmPassword: "Подтвердите пароль",
         match: "Пароли должны совпадать",

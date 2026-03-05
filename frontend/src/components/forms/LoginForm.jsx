@@ -27,7 +27,7 @@ const LoginForm = ({ onSubmit, validationScheme }) => {
     >
       <h1 className="fs-2">{t("auth.signIn")}</h1>
       <Form.Group>
-        <Form.Label htmlFor="username">{t("fields.login")}</Form.Label>
+        <Form.Label htmlFor="username">{t("fields.nickName")}</Form.Label>
         <Form.Control
           id="username"
           type="text"
