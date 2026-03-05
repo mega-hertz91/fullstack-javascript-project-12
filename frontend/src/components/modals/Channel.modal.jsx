@@ -55,20 +55,27 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
 
   return (
     <>
-      <Form onSubmit={createForm.handleSubmit} onClick={(e) => e.stopPropagation()}>
+      <Form
+        onSubmit={createForm.handleSubmit}
+        onClick={(e) => e.stopPropagation()}
+        onKeyUp={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Modal.Header>
           <p className="fs-4 mb-0 fw-medium">{actionText}</p>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="name" className="visually-hidden">{t('chatList.enterChannelName')}</Form.Label>
+            <Form.Label htmlFor="name" className="visually-hidden">
+              {t("chatList.enterChannelName")}
+            </Form.Label>
             <Form.Control
               ref={inputRef}
               disabled={disabled}
               id="name"
               name="name"
               type="text"
-              placeholder={t('chatList.enterChannelName')}
+              placeholder={t("chatList.enterChannelName")}
               value={createForm.values.name}
               onChange={createForm.handleChange}
               isInvalid={!!createForm.errors.name}
@@ -85,9 +92,13 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
             type="reset"
             className="me-2"
           >
-            {t('formAction.cancel')}
+            {t("formAction.cancel")}
           </Button>
-          <Button variant="primary" type="submit" disabled={createForm.isSubmitting}>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={createForm.isSubmitting}
+          >
             {createForm.isSubmitting && (
               <Spinner animation="border" size="sm" className="me-2" />
             )}
