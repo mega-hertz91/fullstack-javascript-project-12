@@ -38,13 +38,9 @@ const Channels = (props) => {
    */
   const createChannelHandler = async (values, formikBag) => {
     if (isExistIetmInArray(chanels.map(({ name }) => name), values.name)) {
-      const errMsg = [
-        t("entities.channel"),
-        t("error.alreadyExist").toLocaleLowerCase(),
-      ].join(" ");
 
-      formikBag.setFieldError("name", errMsg);
-      throw new Error(errMsg);
+      formikBag.setFieldError("name", t("error.hasBeenUnique"));
+      throw new Error(t("error.hasBeenUnique"));
     }
 
     const { error, data } = await createChanel(values);
@@ -53,7 +49,7 @@ const Channels = (props) => {
       throw new TypeError(t('error.connectNetwork'));
     }
 
-    afterSubmitHook(formikBag, t("entities.channel") + " " + t("toast.createSuccess"), data);
+    afterSubmitHook(formikBag, t("toast.channelCreated"), data);
   };
 
   /**
@@ -68,7 +64,7 @@ const Channels = (props) => {
       throw new TypeError(t('error.connectNetwork'));
     }
 
-    afterSubmitHook(formikBag, t('entities.channel') + ' ' + t('toast.deleteSuccess'));
+    afterSubmitHook(formikBag, t('toast.channelDeleted'));
   };
 
   /**
@@ -80,17 +76,12 @@ const Channels = (props) => {
     if (
       isExistIetmInArray(
         chanels
-          .map(({ name }) => name)
-          .filter((name) => name !== currentChanel?.name),
+          .map(({ name }) => name),
         values.name,
       )
     ) {
-      const errMsg = [
-        t("entities.channel"),
-        t("error.alreadyExist").toLocaleLowerCase(),
-      ].join(" ");
-      formikBag.setFieldError("name", errMsg);
-      throw new Error(errMsg);
+      formikBag.setFieldError("name", t("error.hasBeenUnique"));
+      throw new Error(t("error.hasBeenUnique"));
     }
 
     const { error, data } = await updateChanel(values);
@@ -99,7 +90,7 @@ const Channels = (props) => {
       throw new TypeError(t('error.connectNetwork'));
     }
 
-    afterSubmitHook(formikBag, t('entities.channel') + ' ' + t('toast.updateSuccess'), data);
+    afterSubmitHook(formikBag, t('toast.channelUpdated'), data);
   };
 
   useEffect(() => {
@@ -107,7 +98,7 @@ const Channels = (props) => {
 
     const handleRemoveChannel = ({ id }) => {
       setChannel(chanels.at(0));
-      toast.info([username, t("entities.channel"), id, t("toast.deleteSuccess")].join(" "));
+      toast.info([username, t("entities.channel"), id, t("toast.channelDeleted")].join(" "));
     };
 
     socket.on(Event.REMOVE_CHANNEL, handleRemoveChannel);
