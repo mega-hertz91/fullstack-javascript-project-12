@@ -142,7 +142,7 @@ const resources = {
         notFound: "Не найдено. Запрашиваемый ресурс не существует.",
         serverError: "Ошибка сервера. Пожалуйста, попробуйте позже.",
         alreadyExist: "Уже существует",
-        loginOrPasswordIncorrect: "Неверный логин или пароль",
+        loginOrPasswordIncorrect: "Неверные имя пользователя или пароль",
       },
     },
   },
