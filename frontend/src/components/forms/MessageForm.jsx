@@ -70,7 +70,7 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
             onChange={messageForm.handleChange}
             isInvalid={!!messageForm.errors.body && messageForm.touched.body}
             onKeyDown={onKeyEvent}
-            aria-label=""
+            aria-label={t('chatList.newMessage')}
           />
           <Form.Control.Feedback
             type="invalid"
