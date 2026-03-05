@@ -108,14 +108,18 @@ const ChatList = ({ channelId, username, online }) => {
         {/** end Chatlist header */}
 
         {/** Messages list */}
-        <ul
+        <div
+          id="messages-box"
           className="list-unstyled px-2 overflow-y-auto flex-grow-1"
           style={{ height: "60vh" }}
         >
           {isLoading && (
             <>
               {createArrayOfLength(6).map((index) => (
-                <li className={`w-full mb-2 w-75 ${index % 2 ? 'me-auto' : 'ms-auto'}`} key={index}>
+                <div
+                  className={`w-full mb-2 w-75 ${index % 2 ? "me-auto" : "ms-auto"}`}
+                  key={index}
+                >
                   <Placeholder as="span" animation="glow">
                     <Placeholder.Button
                       sm={12}
@@ -123,7 +127,7 @@ const ChatList = ({ channelId, username, online }) => {
                       variant="secondary"
                     />
                   </Placeholder>
-                </li>
+                </div>
               ))}
             </>
           )}
@@ -131,7 +135,7 @@ const ChatList = ({ channelId, username, online }) => {
             <>
               {filteredMessages.map((message) => (
                 <>
-                  <li
+                  {/**<div
                     ref={
                       message.id === filteredMessages.at(-1)?.id
                         ? lastMesageRef
@@ -146,12 +150,15 @@ const ChatList = ({ channelId, username, online }) => {
                       onDelete={() => deleteMessageHandler(message)}
                       onUpdate={() => setFormState(message)}
                     />
-                  </li>
+                  </div>**/}
+                  <div className="text-break mb-2">
+                    <b>{username}</b>: {message.body}
+                  </div>
                 </>
               ))}
             </>
           )}
-        </ul>
+        </div>
         {/** end Messages list */}
 
         {/** Message form */}
