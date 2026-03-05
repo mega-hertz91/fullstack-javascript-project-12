@@ -130,7 +130,7 @@ const Channels = (props) => {
             </Button>
           }
         >
-          <ChannelModal actionText={t('formAction.create') + ' ' + t('entities.channel').toLocaleLowerCase()} onSubmit={createChannelHandler} />
+          <ChannelModal actionText={t('formAction.send')} onSubmit={createChannelHandler} />
         </AppModal>
       </div>
       {/** Channels list **/}

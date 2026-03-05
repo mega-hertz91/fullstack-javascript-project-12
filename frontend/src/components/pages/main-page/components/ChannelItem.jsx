@@ -39,7 +39,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
             <Dropdown.Item>
               <AppModal trigger={<span>{t("formAction.edit")}</span>}>
                 <ChannelModal
-                  actionText={t("formAction.edit")}
+                  actionText={t("formAction.send")}
                   onSubmit={onUpdateChannel}
                   name={name}
                 />

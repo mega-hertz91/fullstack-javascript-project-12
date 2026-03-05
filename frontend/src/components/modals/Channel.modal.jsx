@@ -51,6 +51,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", dis
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3">
+            <Form.Label htmlFor="name" className="visually-hidden">{t('chatList.enterChannelName')}</Form.Label>
             <Form.Control
               ref={inputRef}
               disabled={disabled}

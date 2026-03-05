@@ -111,13 +111,13 @@ const resources = {
         offline: "Не в сети",
         you: "Вы",
         typeYouMessage: "Введите сообщение и нажмите Enter...",
-        enterChannelName: "Введите название канала",
+        enterChannelName: "Название канала",
         newMessage: 'Новое сообщение'
       },
       formAction: {
         send: "Отправить",
         update: "Обновить",
-        cancel: "Отмена",
+        cancel: "Отменить",
         close: "Закрыть",
         create: "Создать",
         edit: "Редактировать",
