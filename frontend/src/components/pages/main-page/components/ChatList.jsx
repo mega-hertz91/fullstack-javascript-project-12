@@ -61,7 +61,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
       toast.error(t('entities.message') + ' ' + t('toast.createFailed') + ": " + error?.message);
     }
 
-    afterSendHook(t("entities.message") + " " + t("toast.createSuccess"));
+    afterSendHook();
   }
 
   const deleteMessageHandler = async (values) => {
