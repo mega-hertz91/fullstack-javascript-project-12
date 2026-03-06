@@ -1,8 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "./reducres";
-import { alertReducer } from "./reducres";
-import { chanelsApi } from "./services";
-import { messagesApi } from "./services";
+import { configureStore } from '@reduxjs/toolkit'
+import { authReducer , alertReducer } from './reducres'
+import { chanelsApi , messagesApi } from './services'
 
 export const store = configureStore({
   reducer: {
@@ -11,8 +9,8 @@ export const store = configureStore({
     auth: authReducer,
     alerts: alertReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
       .concat(chanelsApi.middleware)
       .concat(messagesApi.middleware),
-});
+})

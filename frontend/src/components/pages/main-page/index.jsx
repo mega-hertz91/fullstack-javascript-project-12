@@ -1,45 +1,45 @@
-import { useEffect, useState } from"react";
-import { useSelector } from "react-redux";
-import { useGetChanelsQuery } from "@/store/services/channels.service";
-import { socket, Event } from "@/socket";
+import { useEffect, useState } from'react'
+import { useSelector } from 'react-redux'
+import { useGetChanelsQuery } from '@/store/services/channels.service'
+import { socket, Event } from '@/socket'
 
 /**
  * Global component for main page. It contains channels list and chat content
  */
-import BaseLayout from "@/components/layout";
-import { Container, Row, Col, Alert, Placeholder, Button, ButtonGroup } from "react-bootstrap";
+import BaseLayout from '@/components/layout'
+import { Container, Row, Col, Alert, Placeholder, Button, ButtonGroup } from 'react-bootstrap'
 
 /**
  * Local component for channels list
  */
-import { ChannelList, ChatList } from "./components";
+import { ChannelList, ChatList } from './components'
 
 const Page = () => {
-  const { username } = useSelector((state) => state.auth);
-  const [currentChanel, setChannel] = useState(null);
-  const [online, setOnline] = useState(false);
-  const { data: chanels, error, isLoading, refetch } = useGetChanelsQuery();
+  const { username } = useSelector(state => state.auth)
+  const [currentChanel, setChannel] = useState(null)
+  const [online, setOnline] = useState(false)
+  const { data: chanels, error, isLoading, refetch } = useGetChanelsQuery()
 
   // Init default channel
   if (chanels && !currentChanel) {
-    setChannel(chanels.at(0));
+    setChannel(chanels.at(0))
   }
 
   useEffect(() => {
-    socket.connect();
+    socket.connect()
 
     const handleConnetction = () => {
-      setOnline(true);
-    };
+      setOnline(true)
+    }
 
-    socket.on(Event.CONNECT, handleConnetction);
+    socket.on(Event.CONNECT, handleConnetction)
 
     return () => {
-      setOnline(false);
-      socket.off(Event.CONNECT, handleConnetction);
-      socket.disconnect(); 
-    };
-  }, []);
+      setOnline(false)
+      socket.off(Event.CONNECT, handleConnetction)
+      socket.disconnect() 
+    }
+  }, [])
 
   return (
     <BaseLayout>
@@ -95,7 +95,7 @@ const Page = () => {
         </Col>
       </Row>
     </BaseLayout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

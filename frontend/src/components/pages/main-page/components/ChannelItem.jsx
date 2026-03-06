@@ -1,6 +1,6 @@
-import { AppModal, ChannelModal } from "@/components/modals";
-import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
+import { AppModal, ChannelModal } from '@/components/modals'
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const ClassName = {
     CURRENT: 'primary',
@@ -9,8 +9,8 @@ const ClassName = {
 }
 
 const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, onDeleteChannel }) => {
-  const { t } = useTranslation();
-  const { id, name, removable } = channel;
+  const { t } = useTranslation()
+  const { id, name, removable } = channel
 
   return (
     <Dropdown
@@ -35,23 +35,23 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
             id="dropdown-split-basic"
             size={ClassName.SIZE}
           >
-           <span className="visually-hidden">{t("chatList.channelOptions")}</span>
+           <span className="visually-hidden">{t('chatList.channelOptions')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item>
-              <AppModal trigger={<span>{t("formAction.edit")}</span>}>
+              <AppModal trigger={<span>{t('formAction.edit')}</span>}>
                 <ChannelModal
-                  actionText={t("formAction.send")}
+                  actionText={t('formAction.send')}
                   onSubmit={onUpdateChannel}
                   name={name}
                 />
               </AppModal>
             </Dropdown.Item>
             <Dropdown.Item>
-              <AppModal trigger={<span>{t("formAction.delete")}</span>}>
+              <AppModal trigger={<span>{t('formAction.delete')}</span>}>
                 <ChannelModal
                   deleted
-                  actionText={t("formAction.delete")}
+                  actionText={t('formAction.delete')}
                   onSubmit={onDeleteChannel}
                   name={name}
                 />
@@ -61,7 +61,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
         </>
       )}
     </Dropdown>
-  );
-};
+  )
+}
 
-export default ChannelItem;
+export default ChannelItem

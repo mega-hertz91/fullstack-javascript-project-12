@@ -1,20 +1,20 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 import {
   selectors as alertSelectors,
   removeAlert,
-} from "@/store/reducres/alert.reducer";
+} from '@/store/reducres/alert.reducer'
 
-import { Alert, Container } from "react-bootstrap";
+import { Alert, Container } from 'react-bootstrap'
 
 const AlertList = () => {
-  const dispatch = useDispatch();
-  const alerts = useSelector((state) => alertSelectors.selectAll(state));
+  const dispatch = useDispatch()
+  const alerts = useSelector(state => alertSelectors.selectAll(state))
 
   return (
-    <Container className="position-fixed" style={{ top: "5%", zIndex: 9999 }}>
+    <Container className="position-fixed" style={{ top: '5%', zIndex: 9999 }}>
       <ul className="list-unstyled m-0 p-0 w-50 mx-auto">
         {alerts.length > 0 &&
-          alerts.map((alert) => (
+          alerts.map(alert => (
             <li key={alert.id}>
               <Alert
                 variant={alert.type}
@@ -32,7 +32,7 @@ const AlertList = () => {
           ))}
       </ul>
     </Container>
-  );
-};
+  )
+}
 
-export default AlertList;
+export default AlertList

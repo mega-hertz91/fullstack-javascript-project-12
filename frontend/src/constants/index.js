@@ -12,8 +12,8 @@ export const ResponseStatus = {
 }
 
 export const Method = {
-    GET: "GET",
-    POST: "POST",
-    PATCH: "PATCH",
-    DELETE: "DELETE",
+    GET: 'GET',
+    POST: 'POST',
+    PATCH: 'PATCH',
+    DELETE: 'DELETE',
 }

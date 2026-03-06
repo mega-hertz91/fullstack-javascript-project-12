@@ -1,27 +1,27 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { MainPage, LoginPage, NotFoundPage, SignUpPage } from './components/pages';
-import { useSelector } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { MainPage, LoginPage, NotFoundPage, SignUpPage } from './components/pages'
+import { useSelector } from 'react-redux'
 
 const routes = [
   {
-    path: "",
+    path: '',
     index: true,
     element: <MainPage />,
     private: true,
   },
   {
-    path: "login",
+    path: 'login',
     element: <LoginPage />,
   },
   {
-    path: "signup",
+    path: 'signup',
     element: <SignUpPage />,
   },
-];
+]
 
-function App() {
-  const { isAuth } = useSelector((state) => state.auth);
+const App = () => {
+  const { isAuth } = useSelector(state => state.auth)
 
 
   return (
@@ -36,7 +36,7 @@ function App() {
                 path={route.path}
                 element={<Navigate to="/login" replace />}
               />
-            );
+            )
           }
 
           // Если маршрут публичный и пользователь уже аутентифицирован, перенаправляем на главную страницу
@@ -47,15 +47,15 @@ function App() {
                 path={route.path}
                 element={<Navigate to="/" replace />}
               />
-            );
+            )
           }
 
-          return <Route key={index} {...route} />;
+          return <Route key={index} {...route} />
         })}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App

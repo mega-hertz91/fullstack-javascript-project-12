@@ -1,1 +1,1 @@
-export { default as RequestError } from "./request.error";
+export { default as RequestError } from './request.error'

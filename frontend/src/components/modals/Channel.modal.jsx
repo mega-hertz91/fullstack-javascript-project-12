@@ -1,20 +1,20 @@
-import { useFormik } from "formik";
-import { useEffect, useRef } from "react";
-import { channelScheme } from "@/validation-schemes";
-import { useTranslation } from "react-i18next";
+import { useFormik } from 'formik'
+import { useEffect, useRef } from 'react'
+import { channelScheme } from '@/validation-schemes'
+import { useTranslation } from 'react-i18next'
 
 /** 
  * View for creating new channel. Used in AppModal component
 */
-import { Modal, Form, Button, Spinner } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { initProfanity, leoProfanity } from "@/utils/profanity.util";
+import { Modal, Form, Button, Spinner } from 'react-bootstrap'
+import { toast } from 'react-toastify'
+import { initProfanity, leoProfanity } from '@/utils/profanity.util'
 
-initProfanity(["ru", "en"]);
+initProfanity(['ru', 'en'])
 
-const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", deleted = false }) => {
-  const { t } = useTranslation();
-  const inputRef = useRef(null);
+const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = '', deleted = false }) => {
+  const { t } = useTranslation()
+  const inputRef = useRef(null)
   const createForm = useFormik({
     initialValues: {
       name,
@@ -22,44 +22,44 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", del
     validationSchema: channelScheme,
     onSubmit: async (values, formikBag) => {
       try {
-        const isNotCorrect = leoProfanity.check(values.name);
+        const isNotCorrect = leoProfanity.check(values.name)
 
         const data = {
           ...values,
           name: !isNotCorrect ? values.name : leoProfanity.clean(values.name),
-        };
+        }
 
-        await onSubmit(data, formikBag);
+        await onSubmit(data, formikBag)
         // Autoclose modal on success
         if (onClose) {
-          onClose();
+          onClose()
         }
       }
       catch (error) {
-        if (error.name === "TypeError") {
-          toast.error(t("error.network"));
+        if (error.name === 'TypeError') {
+          toast.error(t('error.network'))
         }
         
-        console.error(error);
-        formikBag.setSubmitting(false);
+        console.error(error)
+        formikBag.setSubmitting(false)
       }
     },
-  });
+  })
 
   // Set focus to input on modal open
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current.focus()
     }
-  }, []);
+  }, [])
 
   return (
     <>
       <Form
         onSubmit={createForm.handleSubmit}
-        onClick={(e) => e.stopPropagation()}
-        onKeyUp={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
+        onKeyUp={e => e.stopPropagation()}
+        onKeyDown={e => e.stopPropagation()}
       >
         <Modal.Header>
           <p className="fs-4 mb-0 fw-medium">{actionText}</p>
@@ -67,7 +67,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", del
         <Modal.Body>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="name" className="visually-hidden">
-              {t("chatList.enterChannelName")}
+              {t('chatList.enterChannelName')}
             </Form.Label>
             <Form.Control
               ref={inputRef}
@@ -75,7 +75,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", del
               id="name"
               name="name"
               type="text"
-              placeholder={t("chatList.enterChannelName")}
+              placeholder={t('chatList.enterChannelName')}
               value={createForm.values.name}
               onChange={createForm.handleChange}
               isInvalid={!!createForm.errors.name}
@@ -92,10 +92,10 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", del
             type="reset"
             className="me-2"
           >
-            {t("formAction.cancel")}
+            {t('formAction.cancel')}
           </Button>
           <Button
-            variant={deleted ? "danger" : "primary"}
+            variant={deleted ? 'danger' : 'primary'}
             type="submit"
             disabled={createForm.isSubmitting}
           >
@@ -107,7 +107,7 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = "", del
         </Modal.Footer>
       </Form>
     </>
-  );
+  )
 }
 
-export default ChannelModal;
+export default ChannelModal

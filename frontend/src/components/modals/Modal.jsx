@@ -1,11 +1,11 @@
-import { cloneElement, useState, Children } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { cloneElement, useState, Children } from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
-function Simple({ trigger, children, triggerProps, triggerText }) {
-  const [show, setShow] = useState(false);
+const Simple = ({ trigger, children, triggerProps, triggerText }) => {
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
@@ -13,15 +13,15 @@ function Simple({ trigger, children, triggerProps, triggerText }) {
         <div onClick={handleShow}>{trigger}</div>
       ) : (
         <Button {...triggerProps} onClick={handleShow}>
-          {triggerText || "Launch demo modal"}
+          {triggerText || 'Launch demo modal'}
         </Button>
       )}
 
       <Modal show={show} onHide={handleClose}>
-        {Children.map(children, (child) => cloneElement(child, { onClose: handleClose }))}
+        {Children.map(children, child => cloneElement(child, { onClose: handleClose }))}
       </Modal>
     </>
-  );
+  )
 }
 
-export default Simple;
+export default Simple
