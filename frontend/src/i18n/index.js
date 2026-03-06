@@ -54,7 +54,7 @@ const resources = {
         allRightReserved: "All rights reserved",
       },
       toast: {
-        createSuccess: "created successfully",
+        createSuccess: "message sent successfully",
         updateSuccess: "updated successfully",
         deleteSuccess: "deleted successfully",
         createFailed: "failed to create",
@@ -136,7 +136,7 @@ const resources = {
         allRightReserved: "Все права защищены",
       },
       toast: {
-        createSuccess: "успешно создано",
+        createSuccess: "успешно  отправлено",
         updateSuccess: "успешно обновлено",
         deleteSuccess: "успешно удалено",
         createFailed: "не удалось создать",

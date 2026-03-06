@@ -48,6 +48,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     switch (id) {
       case null:
         await createMessageHandler({channelId, username, ...values});
+        toast.success(t('entities.message') + ' ' + t('toast.createSuccess'));
         break;
       default: 
       await updateMessageHandler({ id, ...values });
