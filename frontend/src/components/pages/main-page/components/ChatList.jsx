@@ -49,7 +49,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
         await createMessageHandler({channelId, username, ...values})
         break
       default: 
-      await updateMessageHandler({ id, ...values })
+        await updateMessageHandler({ id, ...values })
     }
   }
 
@@ -89,13 +89,13 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
       )}
       <div className="h-100 d-flex flex-column">
         {/** Chatlist header */}
-          <div className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
-            <p className="me-auto m-0 p-0"># {currentChanel?.name}</p>
-            <p>{filteredMessages.length} {t('chatList.messageCount')}</p>
-            <Badge bg={online ? 'success' : 'secondary'} className="ms-auto">
-              {online ? t('chatList.online') : t('chatList.offline')}
-            </Badge>
-          </div>
+        <div className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
+          <p className="me-auto m-0 p-0"># {currentChanel?.name}</p>
+          <p>{filteredMessages.length} {t('chatList.messageCount')}</p>
+          <Badge bg={online ? 'success' : 'secondary'} className="ms-auto">
+            {online ? t('chatList.online') : t('chatList.offline')}
+          </Badge>
+        </div>
         {/** end Chatlist header */}
 
         {/** Messages list */}

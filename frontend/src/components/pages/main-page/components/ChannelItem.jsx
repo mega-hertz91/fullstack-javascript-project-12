@@ -3,9 +3,9 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 const ClassName = {
-    CURRENT: 'primary',
-    DEFAULT: 'light',
-    SIZE: 'md'
+  CURRENT: 'primary',
+  DEFAULT: 'light',
+  SIZE: 'md'
 }
 
 const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, onDeleteChannel }) => {
@@ -35,7 +35,7 @@ const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, o
             id="dropdown-split-basic"
             size={ClassName.SIZE}
           >
-           <span className="visually-hidden">{t('chatList.channelOptions')}</span>
+            <span className="visually-hidden">{t('chatList.channelOptions')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item>

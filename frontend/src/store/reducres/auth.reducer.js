@@ -30,7 +30,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       console.error(error)
       throw new RequestError(
-       i18n.t('error.network'),
+        i18n.t('error.network'),
       )
     }
   },

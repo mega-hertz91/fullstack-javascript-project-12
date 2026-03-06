@@ -34,7 +34,6 @@ export const messagesApi = createApi({
           await cacheEntryRemoved
 
           socket.off(Event.NEW_MESSAGE, handleNewMessage)
-
           
           socket.disconnect()
         } catch (error) {

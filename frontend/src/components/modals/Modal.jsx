@@ -9,13 +9,15 @@ const Simple = ({ trigger, children, triggerProps, triggerText }) => {
 
   return (
     <>
-      {trigger ? (
-        <div onClick={handleShow}>{trigger}</div>
-      ) : (
-        <Button {...triggerProps} onClick={handleShow}>
-          {triggerText || 'Launch demo modal'}
-        </Button>
-      )}
+      {trigger
+        ? (
+          <div onClick={handleShow}>{trigger}</div>
+        )
+        : (
+          <Button {...triggerProps} onClick={handleShow}>
+            {triggerText || 'Launch demo modal'}
+          </Button>
+        )}
 
       <Modal show={show} onHide={handleClose}>
         {Children.map(children, child => cloneElement(child, { onClose: handleClose }))}

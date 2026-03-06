@@ -4,10 +4,10 @@ const createBaseAlert = () => ({
 })
 
 export const AlertType = {
-    DANGER: 'danger',
-    SUCCESS: 'success',
-    INFO: 'info',
-    WARNING: 'warning',
+  DANGER: 'danger',
+  SUCCESS: 'success',
+  INFO: 'info',
+  WARNING: 'warning',
 }
 
 export const createDangerAlert = message => ({

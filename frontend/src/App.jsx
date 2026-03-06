@@ -23,7 +23,6 @@ const routes = [
 const App = () => {
   const { isAuth } = useSelector(state => state.auth)
 
-
   return (
     <BrowserRouter>
       <Routes>
