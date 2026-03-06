@@ -64,8 +64,8 @@ const BaseLayout = ({ children }) => {
               Hexlet Chat.
               {' '}
               {t('common.allRightReserved')}
-.
-</p>
+              .
+            </p>
           </footer>
         </Col>
       </Row>

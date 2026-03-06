@@ -114,9 +114,9 @@ const Channels = (props) => {
         {/** Channels header **/}
         <p className="p-2 m-0">
           <Badge bg="dark">
-#
-{currentChanel?.name}
-</Badge>
+            #
+            {currentChanel?.name}
+          </Badge>
         </p>
         <AppModal
           trigger={

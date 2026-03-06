@@ -47,8 +47,8 @@ const Page = () => {
         <Alert variant="danger">
           <Alert.Heading>Connection error</Alert.Heading>
           Error loading channels:
-{' '}
-{error.error}
+          {' '}
+          {error.error}
         </Alert>
       )}
       <Row className="h-100">

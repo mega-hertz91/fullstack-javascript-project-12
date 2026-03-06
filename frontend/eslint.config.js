@@ -48,6 +48,17 @@ export default [
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/no-trailing-spaces': 'error',
       '@stylistic/eol-last': ['error', 'always'],
+      '@stylistic/indent': [
+        'error',
+        2,
+        {
+          VariableDeclarator: 1, // фиксированный отступ в 1 уровень
+          SwitchCase: 1,
+          MemberExpression: 1, // фиксирует цепочки методов .then().catch()
+          ArrayExpression: 1,
+          ObjectExpression: 1,
+        },
+      ],
     },
     settings: {
       react: {
