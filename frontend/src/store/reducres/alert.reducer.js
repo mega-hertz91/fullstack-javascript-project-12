@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 
 export const alertAdapter = createEntityAdapter({
-  selectId: (alert) => alert.id,
+  selectId: alert => alert.id,
   sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
 })
 
@@ -17,6 +17,6 @@ const alertSlice = createSlice({
 })
 
 export const { addAlert, removeAlert } = alertSlice.actions
-export const selectors = alertAdapter.getSelectors((state) => state.alerts)
+export const selectors = alertAdapter.getSelectors(state => state.alerts)
 
 export default alertSlice.reducer

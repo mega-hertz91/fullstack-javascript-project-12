@@ -56,9 +56,9 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = '', del
     <>
       <Form
         onSubmit={createForm.handleSubmit}
-        onClick={(e) => e.stopPropagation()}
-        onKeyUp={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
+        onKeyUp={e => e.stopPropagation()}
+        onKeyDown={e => e.stopPropagation()}
       >
         <Modal.Header>
           <p className="fs-4 mb-0 fw-medium">{actionText}</p>

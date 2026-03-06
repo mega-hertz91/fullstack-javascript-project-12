@@ -9,7 +9,7 @@ export const store = configureStore({
     auth: authReducer,
     alerts: alertReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
       .concat(chanelsApi.middleware)
       .concat(messagesApi.middleware),

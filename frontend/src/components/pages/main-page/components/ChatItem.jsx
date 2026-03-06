@@ -9,7 +9,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     <button
       className="px-1 py-0 rounded-none lh-1 m-0 border-0 bg-transparent text-dark"
       ref={ref}
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault()
         onClick(e)
       }}>

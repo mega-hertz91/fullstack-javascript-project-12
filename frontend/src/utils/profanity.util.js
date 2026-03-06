@@ -18,7 +18,7 @@ export const initProfanity = (languages = ['ru', 'en']) => {
 
   leoProfanity.loadDictionary(baseLanguage)
 
-  additionalLanguages.forEach((language) => {
+  additionalLanguages.forEach(language => {
     leoProfanity.add(leoProfanity.getDictionary(language))
   })
 

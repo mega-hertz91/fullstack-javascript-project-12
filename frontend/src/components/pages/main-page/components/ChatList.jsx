@@ -30,11 +30,11 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
    * Filter messages by channelId to display only messages relevant to the current channel. If there are no messages or the channelId is not set, it returns an empty array to avoid rendering issues.
    */
   const filteredMessages = useMemo(
-    () => messages?.filter((message) => message.channelId === channelId) || [],
+    () => messages?.filter(message => message.channelId === channelId) || [],
     [messages, channelId],
   )
 
-  const afterSendHook = (toastMessage) => {
+  const afterSendHook = toastMessage => {
     setFormState({ id: null, body: '' })
     refetch()
 
@@ -53,7 +53,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     }
   }
 
-  const createMessageHandler = async (values) => {
+  const createMessageHandler = async values => {
     const { error } = await createMessage(values)
 
     if (error) {
@@ -63,7 +63,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     afterSendHook()
   }
 
-  const updateMessageHandler = async (values) => {
+  const updateMessageHandler = async values => {
     const { error } = await updateMessage(values)
 
     if (error) {
@@ -115,7 +115,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
         >
           {isLoading && (
             <>
-              {createArrayOfLength(6).map((index) => (
+              {createArrayOfLength(6).map(index => (
                 <div
                   className={`w-full mb-2 w-75 ${index % 2 ? 'me-auto' : 'ms-auto'}`}
                   key={index}
@@ -133,7 +133,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
           )}
           {!isLoading && !error && filteredMessages.length !== 0 && (
             <>
-              {filteredMessages.map((message) => (
+              {filteredMessages.map(message => (
                 <div
                   ref={message.id === filteredMessages.at(-1)?.id ? lastMesageRef : null}
                   key={message.id}

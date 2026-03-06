@@ -15,7 +15,7 @@ import { Row, Col, Alert, Placeholder, Button, ButtonGroup } from 'react-bootstr
 import { ChannelList, ChatList } from './components'
 
 const Page = () => {
-  const { username } = useSelector((state) => state.auth)
+  const { username } = useSelector(state => state.auth)
   const [currentChanel, setChannel] = useState(null)
   const [online, setOnline] = useState(false)
   const { data: chanels, error, isLoading, refetch } = useGetChanelsQuery()

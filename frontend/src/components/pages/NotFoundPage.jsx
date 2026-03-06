@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const Page = () => {
-  const { isAuth } = useSelector((state) => state.auth)
+  const { isAuth } = useSelector(state => state.auth)
   const { t } = useTranslation()
 
   return (

@@ -13,7 +13,7 @@ import { AppModal, LogoutModal } from '@/components/modals/'
 import { toast } from 'react-toastify'
 
 const BaseLayout = ({ children }) => {
-  const { username } = useSelector((state) => state.auth)
+  const { username } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 

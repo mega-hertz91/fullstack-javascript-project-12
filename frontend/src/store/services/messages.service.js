@@ -15,7 +15,7 @@ export const messagesApi = createApi({
       return headers
     },
   }),
-  endpoints: (build) => ({
+  endpoints: build => ({
     getMessages: build.query({
       query: () => ENTITY_PATH,
       async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
@@ -23,8 +23,8 @@ export const messagesApi = createApi({
           await cacheDataLoaded
           socket.connect()
 
-          const handleNewMessage = (message) => {
-            updateCachedData((draft) => {
+          const handleNewMessage = message => {
+            updateCachedData(draft => {
               draft.push(message)
             })
           }
@@ -42,7 +42,7 @@ export const messagesApi = createApi({
       },
     }),
     createMessage: build.mutation({
-      query: (payload) => ({
+      query: payload => ({
         url: ENTITY_PATH,
         method: 'POST',
         body: payload,
