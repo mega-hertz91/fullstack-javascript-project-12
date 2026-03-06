@@ -34,7 +34,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     [messages, channelId],
   )
 
-  const afterSendHook = toastMessage => {
+  const afterSendHook = (toastMessage) => {
     setFormState({ id: null, body: '' })
     refetch()
 
@@ -53,7 +53,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     }
   }
 
-  const createMessageHandler = async values => {
+  const createMessageHandler = async (values) => {
     const { error } = await createMessage(values)
 
     if (error) {
@@ -63,7 +63,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     afterSendHook()
   }
 
-  const updateMessageHandler = async values => {
+  const updateMessageHandler = async (values) => {
     const { error } = await updateMessage(values)
 
     if (error) {

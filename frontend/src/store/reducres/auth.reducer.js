@@ -78,7 +78,7 @@ const loginScenarios = (state, { username, token }) => {
   localStorage.setItem('authUsername', username)
 }
 
-const logoutScenarios = state => {
+const logoutScenarios = (state) => {
   state.isAuth = false
   state.username = null
   state.token = null
@@ -109,11 +109,11 @@ const authSlice = createSlice({
       state.token = action.payload
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     /**
      * Login and logout scenarios
      */
-    builder.addCase(login.pending, state => {
+    builder.addCase(login.pending, (state) => {
       state.state = Status.LOADING
     })
     builder.addCase(login.fulfilled, (state, action) => {
@@ -128,20 +128,20 @@ const authSlice = createSlice({
       loginScenarios(state, { token, username })
       state.state = Status.SUCCESS
     })
-    builder.addCase(login.rejected, state => {
+    builder.addCase(login.rejected, (state) => {
       state.state = Status.ERROR
     })
     /**
      * Logout scenarios. In a real app, you might want to handle different cases (e.g., logout success, logout failure) based on the API response. Here we just simulate a successful logout after a delay.
      */
-    builder.addCase(logout.fulfilled, state => {
+    builder.addCase(logout.fulfilled, (state) => {
       logoutScenarios(state)
       state.state = Status.SUCCESS
     })
     /**
      * Sign up scenarios. You can implement it similarly to login, just call the appropriate API endpoint and handle the response. Here we assume that the API returns the same response structure as login (with statusCode, token, and username) for simplicity. In a real app, you might want to adjust this based on your API design.
      */
-    builder.addCase(signUp.pending, state => {
+    builder.addCase(signUp.pending, (state) => {
       state.state = Status.LOADING
     })
     builder.addCase(signUp.fulfilled, (state, action) => {
@@ -156,7 +156,7 @@ const authSlice = createSlice({
       loginScenarios(state, { token, username })
       state.state = Status.SUCCESS
     })
-    builder.addCase(signUp.rejected, state => {
+    builder.addCase(signUp.rejected, (state) => {
       state.state = Status.ERROR
     })
   },

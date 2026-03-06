@@ -14,7 +14,7 @@ import ChannelItem from './ChannelItem'
 import { AppModal, ChannelModal } from '@/components/modals'
 import { ButtonGroup, Badge, Button } from 'react-bootstrap'
 
-const Channels = props => {
+const Channels = (props) => {
   const { t } = useTranslation()
   const { chanels, currentChanel, setChannel, refetch } = props
 

@@ -27,20 +27,20 @@ export const chanelsApi = createApi({
           await cacheDataLoaded
           socket.connect()
 
-          const handleNewChannel = channel => {
-            updateCachedData(draft => {
+          const handleNewChannel = (channel) => {
+            updateCachedData((draft) => {
               draft.push(channel)
             })
           }
 
           const handleDeleteChannel = ({ id: channelId }) => {
-            updateCachedData(draft => {
+            updateCachedData((draft) => {
               return draft.filter(channel => channel.id !== channelId)
             })
           }
 
-          const handleRenameChannel = updatedChannel => {
-            updateCachedData(draft => {
+          const handleRenameChannel = (updatedChannel) => {
+            updateCachedData((draft) => {
               const index = draft.findIndex(
                 channel => channel.id === updatedChannel.id,
               )

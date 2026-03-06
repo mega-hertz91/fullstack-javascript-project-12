@@ -30,7 +30,7 @@ const MessageForm = ({ onSubmit, initialValues }) => {
     },
   })
 
-  const onKeyEvent = e => {
+  const onKeyEvent = (e) => {
     const { key } = e
 
     if (key === 'Enter' && messageForm.values.body) {

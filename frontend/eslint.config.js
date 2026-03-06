@@ -34,8 +34,15 @@ export default [
       'react/prop-types': 'off',
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/semi': ['error', 'never'],
-      '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
-      '@stylistic/arrow-parens': ['error', 'as-needed'],
+      '@stylistic/jsx-one-expression-per-line': [
+        'error',
+        { allow: 'single-child' },
+      ],
+      '@stylistic/arrow-parens': [
+        'error',
+        'as-needed',
+        { requireForBlockBody: true },
+      ],
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/object-curly-spacing': ['error', 'always'],

@@ -4,7 +4,7 @@ import { Button, ButtonGroup } from 'react-bootstrap'
 const LanguageSwitcher = ({ className }) => {
   const { i18n } = useTranslation()
 
-  const handleChangeLanguage = async language => {
+  const handleChangeLanguage = async (language) => {
     await i18n.changeLanguage(language)
   }
 

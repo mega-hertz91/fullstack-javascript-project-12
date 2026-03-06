@@ -23,8 +23,8 @@ export const messagesApi = createApi({
           await cacheDataLoaded
           socket.connect()
 
-          const handleNewMessage = message => {
-            updateCachedData(draft => {
+          const handleNewMessage = (message) => {
+            updateCachedData((draft) => {
               draft.push(message)
             })
           }
