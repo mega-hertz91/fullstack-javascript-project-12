@@ -37,7 +37,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
 
   const afterSendHook = (toastMessage) => {
     setFormState({ id: null, body: "" });
-    refetch();
+    // refetch();
 
     if (toastMessage) {
       toast.success(toastMessage);
@@ -48,7 +48,6 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     switch (id) {
       case null:
         await createMessageHandler({channelId, username, ...values});
-        toast.success(t('entities.message') + ' ' + t('toast.createSuccess'));
         break;
       default: 
       await updateMessageHandler({ id, ...values });
@@ -62,7 +61,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
       toast.error(t('entities.message') + ' ' + t('toast.createFailed') + ": " + error?.message);
     }
 
-    afterSendHook(null);
+    afterSendHook(t("entities.message") + " " + t("toast.createSuccess"));
   }
 
   const deleteMessageHandler = async (values) => {
