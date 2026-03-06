@@ -35,6 +35,7 @@ const resources = {
         enterChannelName: "Enter channel name",
         newMessage: 'New message',
         channelOptions: 'Channel management',
+        messageCount: "messages"
       },
       formAction: {
         send: "Send",
@@ -115,6 +116,7 @@ const resources = {
         enterChannelName: "Имя канала",
         newMessage: 'Новое сообщение',
         channelOptions: 'Управление каналом',
+        messageCount: "сообщения"
       },
       formAction: {
         send: "Отправить",

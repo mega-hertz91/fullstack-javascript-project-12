@@ -90,6 +90,7 @@ const Page = () => {
             online={online}
             channelId={currentChanel?.id}
             username={username}
+            currentChanel={currentChanel}
           />
         </Col>
       </Row>

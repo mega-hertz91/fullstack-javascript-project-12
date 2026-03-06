@@ -17,7 +17,7 @@ import { Badge, Alert, Placeholder } from "react-bootstrap";
 /**
  * ChatList component for displaying messages of the current channel. It fetches messages from the server and listens for new messages via WebSocket. Messages are filtered by channelId to show only relevant messages for the current channel.
  */
-const ChatList = ({ channelId, username, online }) => {
+const ChatList = ({ channelId, username, online, currentChanel }) => {
   const { t } = useTranslation();
   const lastMesageRef = useRef(null);
   const [formState, setFormState] = useState({ id: null, body: "" });
@@ -100,11 +100,13 @@ const ChatList = ({ channelId, username, online }) => {
       )}
       <div className="h-100 d-flex flex-column">
         {/** Chatlist header */}
-        <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
-          <Badge bg={online ? "success" : "secondary"} className="ms-auto">
-            {online ? t("chatList.online") : t("chatList.offline")}
-          </Badge>
-        </p>
+          <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
+            <p className="me-auto m-0 p-0"># {currentChanel?.name}</p>
+            <p>{filteredMessages.length} {t("chatList.messageCount")}</p>
+            <Badge bg={online ? "success" : "secondary"} className="ms-auto">
+              {online ? t("chatList.online") : t("chatList.offline")}
+            </Badge>
+          </p>
         {/** end Chatlist header */}
 
         {/** Messages list */}
