@@ -118,7 +118,7 @@ const Channels = (props) => {
           </Badge>
         </p>
         <AppModal
-          trigger={
+          trigger={(
             <Button
               variant="primary"
               size="sm"
@@ -129,7 +129,7 @@ const Channels = (props) => {
             >
               +
             </Button>
-          }
+          )}
         >
           <ChannelModal actionText={t('formAction.send')} onSubmit={createChannelHandler} />
         </AppModal>

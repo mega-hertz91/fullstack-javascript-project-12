@@ -20,7 +20,7 @@ const BaseLayout = ({ children }) => {
   const handleLogout = async () => {
     try {
       await dispatch(logout()).unwrap()
-    } 
+    }
     catch (error) {
       toast.error(t(error.message))
     }
@@ -36,11 +36,11 @@ const BaseLayout = ({ children }) => {
             </h1>
             {username && (
               <AppModal
-                trigger={
+                trigger={(
                   <Button variant="primary" size="sm" className="me-auto">
                     {t('auth.logout')}
                   </Button>
-                }
+                )}
               >
                 <LogoutModal onLogout={handleLogout} />
               </AppModal>

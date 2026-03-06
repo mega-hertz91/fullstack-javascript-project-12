@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')).render(
         breakpoints={['xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
         minBreakpoint="sm"
       >
-        <I18nextProvider i18n={i18n} defaultNS={'translation'}>
+        <I18nextProvider i18n={i18n} defaultNS={('translation')}>
           <App />
           <ToastContainer />
         </I18nextProvider>
