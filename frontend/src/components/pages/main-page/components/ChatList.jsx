@@ -141,6 +141,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
                 >
                   <b>{message.username}</b>
                   :
+                  &nbsp;
                   {message.body}
                 </div>
               ))}
