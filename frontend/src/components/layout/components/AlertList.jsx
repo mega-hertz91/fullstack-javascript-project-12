@@ -8,13 +8,13 @@ import { Alert, Container } from 'react-bootstrap'
 
 const AlertList = () => {
   const dispatch = useDispatch()
-  const alerts = useSelector(state => alertSelectors.selectAll(state))
+  const alerts = useSelector((state) => alertSelectors.selectAll(state))
 
   return (
     <Container className="position-fixed" style={{ top: '5%', zIndex: 9999 }}>
       <ul className="list-unstyled m-0 p-0 w-50 mx-auto">
-        {alerts.length > 0 &&
-          alerts.map(alert => (
+        {alerts.length > 0
+          && alerts.map((alert) => (
             <li key={alert.id}>
               <Alert
                 variant={alert.type}

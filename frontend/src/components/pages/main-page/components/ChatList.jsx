@@ -30,11 +30,11 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
    * Filter messages by channelId to display only messages relevant to the current channel. If there are no messages or the channelId is not set, it returns an empty array to avoid rendering issues.
    */
   const filteredMessages = useMemo(
-    () => messages?.filter(message => message.channelId === channelId) || [],
+    () => messages?.filter((message) => message.channelId === channelId) || [],
     [messages, channelId],
   )
 
-  const afterSendHook = toastMessage => {
+  const afterSendHook = (toastMessage) => {
     setFormState({ id: null, body: '' })
     refetch()
 
@@ -43,17 +43,17 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     }
   }
 
-  const onSubmitMessage = async ({id, ...values}) => {
+  const onSubmitMessage = async ({ id, ...values }) => {
     switch (id) {
       case null:
-        await createMessageHandler({channelId, username, ...values})
+        await createMessageHandler({ channelId, username, ...values })
         break
-      default: 
+      default:
         await updateMessageHandler({ id, ...values })
     }
   }
 
-  const createMessageHandler = async values => {
+  const createMessageHandler = async (values) => {
     const { error } = await createMessage(values)
 
     if (error) {
@@ -63,7 +63,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     afterSendHook()
   }
 
-  const updateMessageHandler = async values => {
+  const updateMessageHandler = async (values) => {
     const { error } = await updateMessage(values)
 
     if (error) {
@@ -84,14 +84,23 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
       {error && (
         <Alert variant="danger">
           <Alert.Heading>Connection error</Alert.Heading>
-          Error loading messages: {error.error}
+          Error loading messages:
+{' '}
+{error.error}
         </Alert>
       )}
       <div className="h-100 d-flex flex-column">
         {/** Chatlist header */}
         <div className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
-          <p className="me-auto m-0 p-0"># {currentChanel?.name}</p>
-          <p>{filteredMessages.length} {t('chatList.messageCount')}</p>
+          <p className="me-auto m-0 p-0">
+#
+{currentChanel?.name}
+</p>
+          <p>
+{filteredMessages.length}
+{' '}
+{t('chatList.messageCount')}
+</p>
           <Badge bg={online ? 'success' : 'secondary'} className="ms-auto">
             {online ? t('chatList.online') : t('chatList.offline')}
           </Badge>
@@ -106,7 +115,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
         >
           {isLoading && (
             <>
-              {createArrayOfLength(6).map(index => (
+              {createArrayOfLength(6).map((index) => (
                 <div
                   className={`w-full mb-2 w-75 ${index % 2 ? 'me-auto' : 'ms-auto'}`}
                   key={index}
@@ -124,13 +133,15 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
           )}
           {!isLoading && !error && filteredMessages.length !== 0 && (
             <>
-              {filteredMessages.map(message => (
+              {filteredMessages.map((message) => (
                 <div
                   ref={message.id === filteredMessages.at(-1)?.id ? lastMesageRef : null}
                   key={message.id}
                   className="text-break mb-2"
                 >
-                  <b>{message.username}</b>: {message.body}
+                  <b>{message.username}</b>
+:
+{message.body}
                 </div>
               ))}
             </>

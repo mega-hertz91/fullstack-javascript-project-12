@@ -14,13 +14,13 @@ const Simple = ({ trigger, children, triggerProps, triggerText }) => {
           <div onClick={handleShow}>{trigger}</div>
         )
         : (
-          <Button {...triggerProps} onClick={handleShow}>
+          <Button {...triggerProps} onClick={(e) => handleShow(e)}>
             {triggerText || 'Launch demo modal'}
           </Button>
         )}
 
       <Modal show={show} onHide={handleClose}>
-        {Children.map(children, child => cloneElement(child, { onClose: handleClose }))}
+        {Children.map(children, (child) => cloneElement(child, { onClose: handleClose }))}
       </Modal>
     </>
   )

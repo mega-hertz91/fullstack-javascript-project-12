@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 const ClassName = {
   CURRENT: 'primary',
   DEFAULT: 'light',
-  SIZE: 'md'
+  SIZE: 'md',
 }
 
 const ChannelItem = ({ channel, isCurrentChannel, setChannel, onUpdateChannel, onDeleteChannel }) => {

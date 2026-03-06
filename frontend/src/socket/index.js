@@ -10,5 +10,5 @@ export const Event = {
 
 export const socket = io('', {
   autoConnect: false,
-  timeout: 20000
+  timeout: 20000,
 })

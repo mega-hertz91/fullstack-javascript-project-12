@@ -4,7 +4,7 @@ import { signupScheme } from '@/validation-schemes'
 import { RegisterForm } from '@/components/forms'
 import { ResponseStatus } from '@/constants/'
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import BaseLayout from '@/components/layout'
 import { toast } from 'react-toastify'
 
@@ -19,7 +19,7 @@ const Page = () => {
     try {
       await dispatch(signUp({ username, password })).unwrap()
       resetForm()
-    } catch ({name, message, statusCode = 0}) {
+    } catch ({ name, message, statusCode = 0 }) {
       if (name === 'RequestError' && statusCode === ResponseStatus.CONFLICT) {
         setFieldError('username', ' ')
         setFieldError('password', ' ')

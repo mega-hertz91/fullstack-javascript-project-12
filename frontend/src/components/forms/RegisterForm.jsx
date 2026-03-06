@@ -14,7 +14,7 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
       firstInputRef.current.focus()
     }
   }, [])
-  
+
   useEffect(() => {
     onFocusFirstInput()
   }, [onFocusFirstInput])
@@ -92,7 +92,10 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
       </Form.Group>
       <FormGroup className="pt-3">
         <Link to="/login">
-          {t('auth.existAccount')}? {t('auth.signIn')}
+          {t('auth.existAccount')}
+          ?
+          {' '}
+          {t('auth.signIn')}
         </Link>
       </FormGroup>
       <FormGroup className="pt-3">

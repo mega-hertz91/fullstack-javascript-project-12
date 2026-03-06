@@ -12,7 +12,7 @@ const resources = {
         signUpProcess: 'Sign up',
         signIn: 'Sign in',
         logout: 'Logout',
-        notAccount: "Don't have an account",
+        notAccount: 'Don\'t have an account',
         existAccount: 'Already have an account',
         logoutConfirmQuestion: 'Are you sure you want to logout?',
         logoutConfirmTitile: 'Logout confirmation',
@@ -76,7 +76,7 @@ const resources = {
         network: 'Network error. Please check your connection.',
         unauthorized: 'Unauthorized. Please log in again.',
         forbidden:
-          "Forbidden. You don't have permission to access this resource.",
+          'Forbidden. You don\'t have permission to access this resource.',
         notFound: 'Not found. The requested resource does not exist.',
         serverError: 'Server error. Please try again later.',
         alreadyExist: 'Already exists.',

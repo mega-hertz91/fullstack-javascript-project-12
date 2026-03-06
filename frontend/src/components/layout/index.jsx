@@ -3,7 +3,7 @@ import { logout } from '@/store/reducres/auth.reducer'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-/**  
+/**
  * Import Bootstrap components
  * You can customize the layout and styling as needed
  */
@@ -13,7 +13,7 @@ import { AppModal, LogoutModal } from '@/components/modals/'
 import { toast } from 'react-toastify'
 
 const BaseLayout = ({ children }) => {
-  const { username } = useSelector(state => state.auth)
+  const { username } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
@@ -57,9 +57,15 @@ const BaseLayout = ({ children }) => {
         <Col sm={12} className="flex-grow-1">
           <footer className="base-layout__footer">
             <p>
-              &copy; {new Date().getFullYear()} Hexlet Chat.
-              {t('common.allRightReserved')}.
-            </p>
+              &copy;
+              {' '}
+              {new Date().getFullYear()}
+              {' '}
+              Hexlet Chat.
+              {' '}
+              {t('common.allRightReserved')}
+.
+</p>
           </footer>
         </Col>
       </Row>

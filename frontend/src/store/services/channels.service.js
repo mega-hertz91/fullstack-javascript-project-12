@@ -16,7 +16,7 @@ export const chanelsApi = createApi({
       return headers
     },
   }),
-  endpoints: build => ({
+  endpoints: (build) => ({
     getChanels: build.query({
       query: () => ENTITY_PATH,
       async onCacheEntryAdded(
@@ -27,22 +27,22 @@ export const chanelsApi = createApi({
           await cacheDataLoaded
           socket.connect()
 
-          const handleNewChannel = channel => {
-            updateCachedData(draft => {
+          const handleNewChannel = (channel) => {
+            updateCachedData((draft) => {
               draft.push(channel)
             })
           }
 
           const handleDeleteChannel = ({ id: channelId }) => {
-            updateCachedData(draft => {
-              return draft.filter(channel => channel.id !== channelId)
+            updateCachedData((draft) => {
+              return draft.filter((channel) => channel.id !== channelId)
             })
           }
 
-          const handleRenameChannel = updatedChannel => {
-            updateCachedData(draft => {
+          const handleRenameChannel = (updatedChannel) => {
+            updateCachedData((draft) => {
               const index = draft.findIndex(
-                channel => channel.id === updatedChannel.id,
+                (channel) => channel.id === updatedChannel.id,
               )
               if (index !== -1) {
                 draft[index] = updatedChannel
@@ -55,7 +55,7 @@ export const chanelsApi = createApi({
           socket.on(Event.RENAME_CHANNEL, handleRenameChannel)
 
           await cacheEntryRemoved
-          
+
           socket.off(Event.NEW_CHANNEL, handleNewChannel)
           socket.off(Event.REMOVE_CHANNEL, handleDeleteChannel)
           socket.off(Event.RENAME_CHANNEL, handleRenameChannel)
@@ -67,7 +67,7 @@ export const chanelsApi = createApi({
       },
     }),
     createChanel: build.mutation({
-      query: newChanel => ({
+      query: (newChanel) => ({
         url: ENTITY_PATH,
         method: Method.POST,
         body: newChanel,

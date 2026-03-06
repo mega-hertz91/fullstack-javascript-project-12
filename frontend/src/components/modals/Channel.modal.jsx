@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react'
 import { channelScheme } from '@/validation-schemes'
 import { useTranslation } from 'react-i18next'
 
-/** 
+/**
  * View for creating new channel. Used in AppModal component
-*/
+ */
 import { Modal, Form, Button, Spinner } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { initProfanity, leoProfanity } from '@/utils/profanity.util'
@@ -34,12 +34,11 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = '', del
         if (onClose) {
           onClose()
         }
-      }
-      catch (error) {
+      } catch (error) {
         if (error.name === 'TypeError') {
           toast.error(t('error.network'))
         }
-        
+
         console.error(error)
         formikBag.setSubmitting(false)
       }
@@ -57,9 +56,9 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = '', del
     <>
       <Form
         onSubmit={createForm.handleSubmit}
-        onClick={e => e.stopPropagation()}
-        onKeyUp={e => e.stopPropagation()}
-        onKeyDown={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+        onKeyUp={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
       >
         <Modal.Header>
           <p className="fs-4 mb-0 fw-medium">{actionText}</p>

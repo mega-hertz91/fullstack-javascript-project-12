@@ -1,10 +1,10 @@
-import { Container, ButtonGroup, Button } from 'react-bootstrap'
+import { ButtonGroup, Button } from 'react-bootstrap'
 import BaseLayout from '@/components/layout'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 const Page = () => {
-  const { isAuth } = useSelector(state => state.auth)
+  const { isAuth } = useSelector((state) => state.auth)
   const { t } = useTranslation()
 
   return (

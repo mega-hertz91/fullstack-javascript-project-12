@@ -14,7 +14,7 @@ import ChannelItem from './ChannelItem'
 import { AppModal, ChannelModal } from '@/components/modals'
 import { ButtonGroup, Badge, Button } from 'react-bootstrap'
 
-const Channels = props => {
+const Channels = (props) => {
   const { t } = useTranslation()
   const { chanels, currentChanel, setChannel, refetch } = props
 
@@ -57,7 +57,7 @@ const Channels = props => {
    * @param {Object} // FormikBag values
    */
   const deleteChannelHandler = async (values, formikBag) => {
-    const {error} = await deleteChanel(values)
+    const { error } = await deleteChanel(values)
 
     if (error) {
       throw new TypeError(t('error.connectNetwork'))
@@ -113,7 +113,10 @@ const Channels = props => {
       <div className="d-flex justify-content-between align-items-baseline bg-light border-bottom">
         {/** Channels header **/}
         <p className="p-2 m-0">
-          <Badge bg="dark">#{currentChanel?.name}</Badge>
+          <Badge bg="dark">
+#
+{currentChanel?.name}
+</Badge>
         </p>
         <AppModal
           trigger={
@@ -141,8 +144,8 @@ const Channels = props => {
               channel={{ name, id, removable }}
               isCurrentChannel={currentChanel?.id === id}
               setChannel={setChannel}
-              onUpdateChannel={(values, formikBag) => updateChannelHandler({ id, ...values},formikBag)}
-              onDeleteChannel={(values, formikBag) => deleteChannelHandler({ id, ...values},formikBag)}
+              onUpdateChannel={(values, formikBag) => updateChannelHandler({ id, ...values },formikBag)}
+              onDeleteChannel={(values, formikBag) => deleteChannelHandler({ id, ...values },formikBag)}
             />
           ))}
         </ButtonGroup>

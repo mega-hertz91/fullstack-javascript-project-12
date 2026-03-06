@@ -15,7 +15,7 @@ export const messagesApi = createApi({
       return headers
     },
   }),
-  endpoints: build => ({
+  endpoints: (build) => ({
     getMessages: build.query({
       query: () => ENTITY_PATH,
       async onCacheEntryAdded(arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
@@ -36,14 +36,13 @@ export const messagesApi = createApi({
           socket.off(Event.NEW_MESSAGE, handleNewMessage)
 
           socket.disconnect()
-        }
-        catch (error) {
+        } catch (error) {
           console.error('WebSocket error:', error)
         }
       },
     }),
     createMessage: build.mutation({
-      query: payload => ({
+      query: (payload) => ({
         url: ENTITY_PATH,
         method: 'POST',
         body: payload,

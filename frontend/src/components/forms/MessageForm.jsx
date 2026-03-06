@@ -51,7 +51,7 @@ const MessageForm = ({ onSubmit, initialValues }) => {
         <Form.Group className="w-100">
           <Form.Control
             ref={inputRef}
-            placeholder={t("chatList.typeYouMessage")}
+            placeholder={t('chatList.typeYouMessage')}
             name="body"
             value={messageForm.values.body}
             onChange={messageForm.handleChange}
@@ -80,7 +80,7 @@ const MessageForm = ({ onSubmit, initialValues }) => {
                 className="me-2 mt-1 bg-transparent"
               />
             )}
-            <span>{">>"}</span>
+            <span>{'>>'}</span>
           </Button>
         </Form.Group>
       </Form>

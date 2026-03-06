@@ -7,7 +7,7 @@ import { socket, Event } from '@/socket'
  * Global component for main page. It contains channels list and chat content
  */
 import BaseLayout from '@/components/layout'
-import { Container, Row, Col, Alert, Placeholder, Button, ButtonGroup } from 'react-bootstrap'
+import { Row, Col, Alert, Placeholder, Button, ButtonGroup } from 'react-bootstrap'
 
 /**
  * Local component for channels list
@@ -15,7 +15,7 @@ import { Container, Row, Col, Alert, Placeholder, Button, ButtonGroup } from 're
 import { ChannelList, ChatList } from './components'
 
 const Page = () => {
-  const { username } = useSelector(state => state.auth)
+  const { username } = useSelector((state) => state.auth)
   const [currentChanel, setChannel] = useState(null)
   const [online, setOnline] = useState(false)
   const { data: chanels, error, isLoading, refetch } = useGetChanelsQuery()
@@ -37,7 +37,7 @@ const Page = () => {
     return () => {
       setOnline(false)
       socket.off(Event.CONNECT, handleConnetction)
-      socket.disconnect() 
+      socket.disconnect()
     }
   }, [])
 
@@ -46,7 +46,9 @@ const Page = () => {
       {error && (
         <Alert variant="danger">
           <Alert.Heading>Connection error</Alert.Heading>
-          Error loading channels: {error.error}
+          Error loading channels:
+{' '}
+{error.error}
         </Alert>
       )}
       <Row className="h-100">
