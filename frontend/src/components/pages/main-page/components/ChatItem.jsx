@@ -12,7 +12,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
       onClick={(e) => {
         e.preventDefault()
         onClick(e)
-      }}>
+      }}
+    >
       ...
       { children }
     </button>
@@ -43,7 +44,6 @@ const ChatItem = ({ username, body, removable, isMe, onDelete, onUpdate }) => {
             </Dropdown>
           )}
           <Badge bg={isMe ? 'success' : 'dark'}>
-            {/**{isMe ? t("chatList.you") : username} */}
             {username}
           </Badge>
         </div>

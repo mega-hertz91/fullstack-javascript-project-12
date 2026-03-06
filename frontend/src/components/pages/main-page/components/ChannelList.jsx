@@ -37,7 +37,6 @@ const Channels = (props) => {
    */
   const createChannelHandler = async (values, formikBag) => {
     if (isExistIetmInArray(chanels.map(({ name }) => name), values.name)) {
-
       formikBag.setFieldError('name', t('error.hasBeenUnique'))
       throw new Error(t('error.hasBeenUnique'))
     }

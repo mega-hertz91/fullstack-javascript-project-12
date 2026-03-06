@@ -36,7 +36,7 @@ export const messagesApi = createApi({
           socket.off(Event.NEW_MESSAGE, handleNewMessage)
 
           socket.disconnect()
-        } 
+        }
         catch (error) {
           console.error('WebSocket error:', error)
         }

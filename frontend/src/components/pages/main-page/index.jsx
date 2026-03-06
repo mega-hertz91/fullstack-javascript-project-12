@@ -1,4 +1,4 @@
-import { useEffect, useState } from'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useGetChanelsQuery } from '@/store/services/channels.service'
 import { socket, Event } from '@/socket'

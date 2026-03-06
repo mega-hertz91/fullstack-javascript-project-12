@@ -19,7 +19,8 @@ const Page = () => {
     try {
       await dispatch(signUp({ username, password })).unwrap()
       resetForm()
-    } catch ({ name, message, statusCode = 0 }) {
+    }
+    catch ({ name, message, statusCode = 0 }) {
       if (name === 'RequestError' && statusCode === ResponseStatus.CONFLICT) {
         setFieldError('username', ' ')
         setFieldError('password', ' ')

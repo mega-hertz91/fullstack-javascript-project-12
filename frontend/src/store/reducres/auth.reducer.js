@@ -27,7 +27,7 @@ export const login = createAsyncThunk(
 
       const data = await response.json()
       return data
-    } 
+    }
     catch (error) {
       console.error(error)
       throw new RequestError(
@@ -61,7 +61,7 @@ export const signUp = createAsyncThunk(
 
       const data = await response.json()
       return data
-    } 
+    }
     catch (error) {
       console.error(error)
       throw new RequestError(
