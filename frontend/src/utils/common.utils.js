@@ -15,6 +15,6 @@ export const isEqualString = (str1, str2) => {
   return strLeft === strRight
 }
 
-export const createArrayOfLength = length => {
+export const createArrayOfLength = (length) => {
   return Array.from({ length }, (_, index) => index)
 }

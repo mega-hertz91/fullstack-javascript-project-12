@@ -61,7 +61,10 @@ const LoginForm = ({ onSubmit }) => {
       </Form.Group>
       <FormGroup className="pt-3">
         <p>
-          {t('auth.notAccount')}? <Link to="/signup">{t('auth.signUp')}</Link>
+          {t('auth.notAccount')}
+          ?
+          {' '}
+          <Link to="/signup">{t('auth.signUp')}</Link>
         </p>
       </FormGroup>
       <FormGroup className="pt-3">

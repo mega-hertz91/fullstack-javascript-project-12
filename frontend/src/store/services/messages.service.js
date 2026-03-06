@@ -23,8 +23,8 @@ export const messagesApi = createApi({
           await cacheDataLoaded
           socket.connect()
 
-          const handleNewMessage = message => {
-            updateCachedData(draft => {
+          const handleNewMessage = (message) => {
+            updateCachedData((draft) => {
               draft.push(message)
             })
           }
@@ -34,9 +34,10 @@ export const messagesApi = createApi({
           await cacheEntryRemoved
 
           socket.off(Event.NEW_MESSAGE, handleNewMessage)
-          
+
           socket.disconnect()
-        } catch (error) {
+        }
+        catch (error) {
           console.error('WebSocket error:', error)
         }
       },
@@ -48,7 +49,7 @@ export const messagesApi = createApi({
         body: payload,
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }),
     }),
     updateMessage: build.mutation({
@@ -58,11 +59,11 @@ export const messagesApi = createApi({
         body: payload,
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }),
     }),
     deleteMessage: build.mutation({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `${ENTITY_PATH}/${id}`,
         method: 'DELETE',
       }),

@@ -1,16 +1,16 @@
-import { useEffect, useRef } from "react";
-import { useFormik } from "formik";
-import { messageScheme } from "@/validation-schemes/";
-import { useTranslation } from "react-i18next";
-import { initProfanity, leoProfanity } from "@/utils/profanity.util";
+import { useRef } from 'react'
+import { useFormik } from 'formik'
+import { messageScheme } from '@/validation-schemes/'
+import { useTranslation } from 'react-i18next'
+import { initProfanity, leoProfanity } from '@/utils/profanity.util'
 
-import { Form, Button, Spinner, CloseButton, Fade } from "react-bootstrap";
+import { Form, Button, Spinner } from 'react-bootstrap'
 
-initProfanity(["ru", "en"]);
+initProfanity(['ru', 'en'])
 
 const MessageForm = ({ onSubmit, initialValues }) => {
-  const { t } = useTranslation();
-  const inputRef = useRef(null);
+  const { t } = useTranslation()
+  const inputRef = useRef(null)
   /**
    * Formik form for handling message input and submission. On submit, it sends the message to the server and refetches the messages to update the chat list.
    */
@@ -18,26 +18,26 @@ const MessageForm = ({ onSubmit, initialValues }) => {
     initialValues,
     validationSchema: messageScheme,
     onSubmit: async (values, { resetForm }) => {
-      const isNotCorrect = leoProfanity.check(values.body);
+      const isNotCorrect = leoProfanity.check(values.body)
 
       const data = {
         ...values,
         body: !isNotCorrect ? values.body : leoProfanity.clean(values.body),
-      };
+      }
 
-      await onSubmit(data);
-      resetForm();
+      await onSubmit(data)
+      resetForm()
     },
-  });
+  })
 
   const onKeyEvent = (e) => {
-    const { key } = e;
+    const { key } = e
 
-    if (key === "Enter" && messageForm.values.body) {
-      e.preventDefault();
-      messageForm.handleSubmit();
+    if (key === 'Enter' && messageForm.values.body) {
+      e.preventDefault()
+      messageForm.handleSubmit()
     }
-  };
+  }
 
   /**
    * Reaction to changes in initialValues props. When they change, it updates the form values accordingly. This is useful for editing messages, where the form needs to be populated with the existing message data when the user clicks "edit".
@@ -57,7 +57,7 @@ const MessageForm = ({ onSubmit, initialValues }) => {
             onChange={messageForm.handleChange}
             isInvalid={!!messageForm.errors.body && messageForm.touched.body}
             onKeyDown={onKeyEvent}
-            aria-label={t("chatList.newMessage")}
+            aria-label={t('chatList.newMessage')}
           />
           <Form.Control.Feedback
             type="invalid"
@@ -85,7 +85,7 @@ const MessageForm = ({ onSubmit, initialValues }) => {
         </Form.Group>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default MessageForm;
+export default MessageForm
