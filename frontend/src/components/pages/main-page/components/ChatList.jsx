@@ -77,7 +77,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
     if (lastMesageRef.current) {
       lastMesageRef.current.scrollIntoView()
     }
-  }, [channelId, filteredMessages])
+  }, [filteredMessages])
 
   return (
     <>
@@ -89,13 +89,13 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
       )}
       <div className="h-100 d-flex flex-column">
         {/** Chatlist header */}
-          <p className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
+          <div className="p-2 bg-light border-bottom d-flex align-items-center justify-content-end">
             <p className="me-auto m-0 p-0"># {currentChanel?.name}</p>
             <p>{filteredMessages.length} {t('chatList.messageCount')}</p>
             <Badge bg={online ? 'success' : 'secondary'} className="ms-auto">
               {online ? t('chatList.online') : t('chatList.offline')}
             </Badge>
-          </p>
+          </div>
         {/** end Chatlist header */}
 
         {/** Messages list */}

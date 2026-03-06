@@ -8,7 +8,7 @@ import { Form, Button, Spinner, CloseButton, Fade } from 'react-bootstrap'
 
 initProfanity(['ru', 'en'])
 
-const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
+const MessageForm = ({ onSubmit, initialValues }) => {
   const { t } = useTranslation()
   const inputRef = useRef(null)
   /**
@@ -37,20 +37,7 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
       e.preventDefault()
       messageForm.handleSubmit()
     }
-
-    if (key === 'Escape') {
-      e.preventDefault()
-      resetValues()
-    }
   }
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus()
-    }
-
-    messageForm.setValues(initialValues)
-  }, [initialValues, messageForm])
 
   /**
    * Reaction to changes in initialValues props. When they change, it updates the form values accordingly. This is useful for editing messages, where the form needs to be populated with the existing message data when the user clicks "edit".
@@ -58,7 +45,7 @@ const MessageForm = ({ onSubmit, initialValues, resetValues }) => {
   return (
     <div className="p-3 bg-light border-top">
       <Form
-        className="border-top position-relative d-flex alight-items-stretch"
+        className="border-top position-relative d-flex align-items-stretch"
         onSubmit={messageForm.handleSubmit}
       >
         <Form.Group className="w-100">
