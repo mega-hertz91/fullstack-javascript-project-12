@@ -37,7 +37,7 @@ const ChatList = ({ channelId, username, online, currentChanel }) => {
 
   const afterSendHook = (toastMessage) => {
     setFormState({ id: null, body: "" });
-    // refetch();
+    refetch();
 
     if (toastMessage) {
       toast.success(toastMessage);
