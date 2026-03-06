@@ -23,7 +23,7 @@ const Channels = (props) => {
   const [updateChanel] = useUpdateChannelMutation()
   const [deleteChanel] = useDeleteChannelMutation()
 
-  const afterSubmitHook =(formikBag, toastMessage, data = null) => {
+  const afterSubmitHook = (formikBag, toastMessage, data = null) => {
     refetch()
     formikBag.resetForm()
 
@@ -144,8 +144,8 @@ const Channels = (props) => {
               channel={{ name, id, removable }}
               isCurrentChannel={currentChanel?.id === id}
               setChannel={setChannel}
-              onUpdateChannel={(values, formikBag) => updateChannelHandler({ id, ...values },formikBag)}
-              onDeleteChannel={(values, formikBag) => deleteChannelHandler({ id, ...values },formikBag)}
+              onUpdateChannel={(values, formikBag) => updateChannelHandler({ id, ...values }, formikBag)}
+              onDeleteChannel={(values, formikBag) => deleteChannelHandler({ id, ...values }, formikBag)}
             />
           ))}
         </ButtonGroup>

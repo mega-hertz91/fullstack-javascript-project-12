@@ -20,7 +20,8 @@ const BaseLayout = ({ children }) => {
   const handleLogout = async () => {
     try {
       await dispatch(logout()).unwrap()
-    } catch (error) {
+    } 
+    catch (error) {
       toast.error(t(error.message))
     }
   }

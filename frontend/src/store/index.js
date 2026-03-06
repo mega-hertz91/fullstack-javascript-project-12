@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { authReducer , alertReducer } from './reducres'
-import { chanelsApi , messagesApi } from './services'
+import { authReducer, alertReducer } from './reducres'
+import { chanelsApi, messagesApi } from './services'
 
 export const store = configureStore({
   reducer: {

@@ -61,7 +61,8 @@ export const chanelsApi = createApi({
           socket.off(Event.RENAME_CHANNEL, handleRenameChannel)
 
           socket.disconnect()
-        } catch (error) {
+        } 
+        catch (error) {
           console.error('WebSocket error:', error)
         }
       },

@@ -34,7 +34,8 @@ const ChannelModal = ({ onClose, onSubmit, actionText = 'Create', name = '', del
         if (onClose) {
           onClose()
         }
-      } catch (error) {
+      }
+      catch (error) {
         if (error.name === 'TypeError') {
           toast.error(t('error.network'))
         }

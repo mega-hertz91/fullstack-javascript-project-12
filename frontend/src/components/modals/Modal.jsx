@@ -11,12 +11,12 @@ const Simple = ({ trigger, children, triggerProps, triggerText }) => {
     <>
       {trigger
         ? (
-          <div onClick={handleShow}>{trigger}</div>
+        <div onClick={handleShow}>{trigger}</div>
         )
         : (
-          <Button {...triggerProps} onClick={e => handleShow(e)}>
+        <Button {...triggerProps} onClick={e => handleShow(e)}>
             {triggerText || 'Launch demo modal'}
-          </Button>
+        </Button>
         )}
 
       <Modal show={show} onHide={handleClose}>

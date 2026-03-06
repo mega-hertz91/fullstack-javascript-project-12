@@ -27,7 +27,8 @@ export const login = createAsyncThunk(
 
       const data = await response.json()
       return data
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error)
       throw new RequestError(
         i18n.t('error.network'),
@@ -60,7 +61,8 @@ export const signUp = createAsyncThunk(
 
       const data = await response.json()
       return data
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error)
       throw new RequestError(
         i18n.t('error.network'),

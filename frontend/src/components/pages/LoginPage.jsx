@@ -17,7 +17,8 @@ const Page = () => {
     try {
       await dispatch(login(values)).unwrap()
       resetForm()
-    } catch ({ name, message, statusCode = 0 }) {
+    } 
+    catch ({ name, message, statusCode = 0 }) {
       if (name === 'RequestError' && statusCode === ResponseStatus.UNAUTHORIZED) {
         setFieldError('username', ' ')
         setFieldError('password', message)

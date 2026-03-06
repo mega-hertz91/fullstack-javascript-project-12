@@ -82,8 +82,8 @@ const RegisterForm = ({ onSubmit, validationScheme }) => {
           onChange={registerFormik.handleChange}
           onBlur={registerFormik.handleBlur}
           isInvalid={
-            !!registerFormik.errors.confirmPassword &&
-            registerFormik.touched.confirmPassword
+            !!registerFormik.errors.confirmPassword
+            && registerFormik.touched.confirmPassword
           }
         />
         <Form.Control.Feedback type="invalid">
